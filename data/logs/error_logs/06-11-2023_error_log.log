@@ -1,0 +1,7 @@
+[Mon, 06 Nov 2023 01:41:32 -0800] [localhost] [::1] [Warning(2): Undefined variable $stt] [FILE: /modules/weather/theme.php] [LINE: 32]
+[Mon, 06 Nov 2023 07:59:10 -0800] [localhost] [::1] [Error(1): Uncaught ArgumentCountError: Too few arguments to function nv_theme_weather_main(), 5 passed in D:\xampp\htdocs\huydz\modules\weather\funcs\main.php on line 71 and exactly 6 expected in D:\xampp\htdocs\huydz\modules\weather\theme.php:25
+Stack trace:
+#0 D:\xampp\htdocs\huydz\modules\weather\funcs\main.php(71): nv_theme_weather_main(Array, Array, '', 0, 1)
+#1 D:\xampp\htdocs\huydz\index.php(369): require('D:\\xampp\\htdocs...')
+#2 {main}
+  thrown] [FILE: /modules/weather/theme.php] [LINE: 25]
