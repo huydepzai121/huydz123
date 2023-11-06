@@ -18,6 +18,7 @@
 <table class="table table-bordered table-striped">
     <thead>
     <tr>
+        Huydz
         <th>Ngày dự báo</th>
         <th>Thời kỳ</th>
         <th>Mô tả</th>
