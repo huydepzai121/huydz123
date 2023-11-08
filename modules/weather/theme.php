@@ -27,7 +27,6 @@ function nv_theme_weather_main($array_data, $citys, $selectedCityName, $total_pa
 
     $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $baseLink = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
-//    http://localhost/nuke-viet/admin/index.php?language=vi&nv=weather&op=list
     $xtpl->assign('IS_SUBMIT', $is_submit);
     if ($is_submit) {
         foreach ($array_data as $row) {
@@ -35,11 +34,11 @@ function nv_theme_weather_main($array_data, $citys, $selectedCityName, $total_pa
             $xtpl->assign('WEATHER', array(
                 'name' => $row['name'],
                 'date_forecast' => $formatted_date,
-                'time_period' => $row['time_period'],
                 'description' => $row['description'],
                 'wind_speed' => $row['wind_speed'],
-                'temperature_note' => $row['temperature_note'],
-                'temperature_value' => $row['temperature_value'],
+                'high_temperature' => $row['high_temperature'],
+                'low_temperature' => $row['low_temperature'],
+                'rain' => $row['rain'],
                 'avatar'=>$row['avatar']
             ));
             $xtpl->parse('main.loop');
@@ -51,11 +50,11 @@ function nv_theme_weather_main($array_data, $citys, $selectedCityName, $total_pa
             $xtpl->assign('WEATHER', array(
                 'name' => $row['name'],
                 'date_forecast' => $formatted_date,
-                'time_period' => $row['time_period'],
                 'description' => $row['description'],
                 'wind_speed' => $row['wind_speed'],
-                'temperature_note' => $row['temperature_note'],
-                'temperature_value' => $row['temperature_value'],
+                'high_temperature' => $row['high_temperature'],
+                'low_temperature' => $row['low_temperature'],
+                'rain' => $row['rain'],
                 'avatar'=>$row['avatar']
             ));
             $xtpl->parse('main.table_loop');

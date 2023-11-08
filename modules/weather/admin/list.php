@@ -22,7 +22,7 @@ $total_records = $db->query($sql)->fetchColumn();
 $total_pages = ceil($total_records / $records_per_page);
 if (isset($_POST['submit'])) {
     $timkiem = $_POST['timkiem'];
-    $sql = "SELECT " . NV_PREFIXLANG . "_" . $module_data . ".id," . NV_PREFIXLANG . "_" . $module_data . "_city.name,date_forecast," . NV_PREFIXLANG . "_" . $module_data . "_time_period.time_period,description,wind_speed,temperature_note,temperature_value,weight,avatar
+    $sql = "SELECT " . NV_PREFIXLANG . "_" . $module_data . ".id," . NV_PREFIXLANG . "_" . $module_data . "_city.name,date_forecast,description,wind_speed,high_temperature,low_temperature,weight,avatar,rain
 from " . NV_PREFIXLANG . "_" . $module_data . " 
 INNER JOIN " . NV_PREFIXLANG . "_" . $module_data . "_city ON " . NV_PREFIXLANG . "_" . $module_data . ".id_city=" . NV_PREFIXLANG . "_" . $module_data . "_city.id
 INNER JOIN " . NV_PREFIXLANG . "_" . $module_data . "_time_period ON " . NV_PREFIXLANG . "_" . $module_data . ".id_time_period=" . NV_PREFIXLANG . "_" . $module_data . "_time_period.id 
@@ -32,10 +32,9 @@ LIMIT " . $start . ", " . $records_per_page;
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':query1', '%' . $timkiem . '%', PDO::PARAM_STR);
 } else {
-    $sql = "SELECT " . NV_PREFIXLANG . "_" . $module_data . ".id," . NV_PREFIXLANG . "_" . $module_data . "_city.name,date_forecast," . NV_PREFIXLANG . "_" . $module_data . "_time_period.time_period,description,wind_speed,temperature_note,temperature_value,weight,avatar
+    $sql = "SELECT " . NV_PREFIXLANG . "_" . $module_data . ".id," . NV_PREFIXLANG . "_" . $module_data . "_city.name,date_forecast,description,wind_speed,high_temperature,low_temperature,weight,avatar,rain
 from " . NV_PREFIXLANG . "_" . $module_data . " 
 INNER JOIN " . NV_PREFIXLANG . "_" . $module_data . "_city ON " . NV_PREFIXLANG . "_" . $module_data . ".id_city=" . NV_PREFIXLANG . "_" . $module_data . "_city.id
-INNER JOIN " . NV_PREFIXLANG . "_" . $module_data . "_time_period ON " . NV_PREFIXLANG . "_" . $module_data . ".id_time_period=" . NV_PREFIXLANG . "_" . $module_data . "_time_period.id
 ORDER BY " . NV_PREFIXLANG . "_" . $module_data . ".weight ASC
  LIMIT " . $start . ", " . $records_per_page;
     $stmt = $db->prepare($sql);

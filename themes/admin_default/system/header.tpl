@@ -39,7 +39,7 @@
         <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/DOMPurify/purify{PURIFY_VERSION}.js"></script>
         <!-- END: XSSsanitize -->
         <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/admin.js"></script>
-
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- BEGIN: module_js -->
         <script type="text/javascript" src="{NV_JS_MODULE}"></script>
         <!-- END: module_js -->

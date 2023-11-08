@@ -17,23 +17,6 @@
                 <input type="date" class="form-control datepicker" name="date_forecast" autocomplete="off" value="{WEATHER.date_forecast}" />
             </div>
         </div>
-        <div class="col-24 col-md-24">
-            <div class="col-6 col-md-6">
-                <label>Khoảng thời gian:</label>
-                <select name="id_time_period" id="id_time_period" class="form-control">
-                    <!-- BEGIN: time_loop -->
-                    <option value="{TIME_ID}" {SELECTED_TIME}>{TIME_NAME}</option>
-                    <!-- END: time_loop -->
-                </select>
-            </div>
-        </div>
-        <div class="col-24 col-md-24">
-            <div class="form-group">
-                <label for="description">Mô tả:</label>
-
-                <textarea name="description" id="description">{WEATHER.description}</textarea>
-            </div>
-        </div>
         <div class="col-10 col-md-10">
             <div class="form-group">
                 <label for="wind_speed">Tốc độ gió:</label>
@@ -42,19 +25,32 @@
         </div>
         <div class="col-24 col-md-24">
             <div class="form-group">
-                <label for="temperature_note">Ghi chú nhiệt độ:</label>
-                <textarea name="temperature_note" id="temperature_note" class="form-control" rows="5">{WEATHER.wind_speed}</textarea>
+                <label for="low_temperature">Nhiệt độ thấp</label>
+                <span><input type="number" name="low_temperature" class="form-control" value="{WEATHER.low_temperature}"required> °C</span>
             </div>
         </div>
         <div class="col-10 col-md-10">
             <div class="form-group">
-                <label for="temperature_value">Giá trị nhiệt độ:</label>
-                <span><input type="number" name="temperature_value" class="form-control" value="{WEATHER.temperature_value}"required> °C</span>
+                <label for="temperature_value">Nhiệt độ cao:</label>
+                <span><input type="number" name="high_temperature" class="form-control" value="{WEATHER.high_temperature}"required> °C</span>
+            </div>
+        </div>
+        <div class="col-10 col-md-10">
+            <div class="form-group">
+                <label for="rain">Lượng mưa</label>
+                <span><input type="number" name="rain" class="form-control" value="{WEATHER.high_rain}"required> /mm</span>
             </div>
         </div>
         <div class="col-24 col-md-24">
             <label>Ảnh đại diện từ máy tính:</label>
             <input type="file" class="form-control-file" name="avatar" accept="image/*"  />
+        </div>
+        <div class="col-24 col-md-24">
+            <div class="form-group">
+                <label for="description">Mô tả:</label>
+
+                <textarea name="description" id="description">{WEATHER.description}</textarea>
+            </div>
         </div>
     </div>
 

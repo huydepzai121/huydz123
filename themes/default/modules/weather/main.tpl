@@ -15,41 +15,46 @@
 <!-- Kiểm tra xem form đã được submit hay chưa -->
 <!-- IF !IS_SUBMIT -->
 <!-- Hiển thị bảng khi không có submit -->
+<!-- BEGIN: table_loop -->
 <table class="table table-bordered table-striped">
     <thead>
     <tr>
-        Huydz
-        <th>Ngày dự báo</th>
-        <th>Thời kỳ</th>
-        <th>Mô tả</th>
-        <th>Nhiệt độ</th>
-        <th>Tốc độ gió</th>
+        <th>Thành phố</th>
+        <th>Thời gian</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
-    <!-- BEGIN: table_loop -->
     <tr>
+        <td>{WEATHER.name}</td>
         <td>{WEATHER.date_forecast}</td>
-        <td>{WEATHER.time_period}</td>
-        <td>{WEATHER.description}</td>
-        <td>{WEATHER.temperature_value}°C</td>
-        <td>{WEATHER.wind_speed} km/h</td>
+        <td class="forecast-cell" rowspan="4">
+            <div class="icons">
+                <img src="{WEATHER.avatar}" alt="Cloudy" width="42.35px" height="42.35px">
+            </div>
+            <div class="temp-range">{WEATHER.low_temperature}°C - {WEATHER.high_temperature}°C</div>
+
+            <div class="weather-desc">{WEATHER.description}</div>
+        </td>
     </tr>
-    <!-- END: table_loop -->
     </tbody>
 </table>
+<!-- END: table_loop -->
 <!-- ELSE -->
 <!-- Hiển thị card khi có submit -->
 <div class="row justify-content-center mb-5">
     <!-- BEGIN: loop -->
     <div class="weather-card mb-4 mt-5">
         <div class="weather-card-body">
+            <div class="city">{WEATHER.name}</div>
             <div class="date_forecast">{WEATHER.date_forecast}</div>
-            <div class="time_period">{WEATHER.time_period}</div>
             <div class="description">{WEATHER.description}</div>
-            <div class="temperature">{WEATHER.temperature_value}°C</div>
+            <div class="temperature">{WEATHER.low_temperature}°C - {WEATHER.high_temperature}°C</div>
             <div class="weather-details">
                 <div class="detail-item">Gió: {WEATHER.wind_speed} km/h</div>
+            </div>
+            <div class="weather-details">
+                <div class="detail-item">Lượng mưa: {WEATHER.rain} mm</div>
             </div>
         </div>
     </div>
@@ -180,6 +185,26 @@
     }
 
     /* Add more styles as needed */
+    .forecast-cell {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        text-align: center;
+    }
 
+    .temp-range {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .icons img {
+        width: 20px; /* Adjust as needed */
+        height: 20px; /* Adjust as needed */
+        margin-right: 5px; /* Space between icons */
+    }
+
+    .weather-desc {
+        font-size: 0.8em;
+    }
 </style>
 <!-- END: main -->

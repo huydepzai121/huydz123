@@ -20,7 +20,7 @@ $type = "success";
 $weather = [];
 // Thêm cache
 $city_cache_file = NV_LANG_DATA . '_' . $module_name . '_city_data_' . NV_CACHE_PREFIX . '.cache';
-$time_cache_file = NV_LANG_DATA . '_' . $module_name . '_time_period_data_' . NV_CACHE_PREFIX . '.cache';
+
 $weather_cache_file = NV_LANG_DATA . '_' . $module_name . '_weather_data_' . NV_CACHE_PREFIX . '.cache';
     $cache_ttl = 600; // Thời gian cache là 600 giây = 10 phút
 
@@ -33,14 +33,6 @@ if (($cache = $nv_Cache->getItem($module_name, $city_cache_file)) != false) {
     $nv_Cache->setItem($module_name, $city_cache_file, $cache, $cache_ttl);
 }
 
-// Cache cho bảng time
-if (($cache = $nv_Cache->getItem($module_name, $time_cache_file)) != false) {
-    $times = unserialize($cache);
-} else {
-    $times = $db->query("SELECT * FROM " . NV_PREFIXLANG . "_" . $module_data. "_time_period")->fetchAll();
-    $cache = serialize($times);
-    $nv_Cache->setItem($module_name, $time_cache_file, $cache, $cache_ttl);
-}
 
 $id = $nv_Request->get_int('id', 'get', 0);
 $isEditing = $id > 0;
@@ -49,11 +41,11 @@ if ($nv_Request->get_int('submit', 'post', 0)) {
     $data = [
         'id_city' => $nv_Request->get_int('id_city', 'post', 0),
         'date_forecast' => $nv_Request->get_title('date_forecast', 'post', ''),
-        'id_time_period' => $nv_Request->get_title('id_time_period', 'post', 0),
         'description' => $nv_Request->get_title('description', 'post', ''),
         'wind_speed' => $nv_Request->get_int('wind_speed', 'post', 0),
-        'temperature_note' => $nv_Request->get_title('temperature_note', 'post', ''),
-        'temperature_value' => $nv_Request->get_int('temperature_value', 'post', 0),
+        'high_temperature' => $nv_Request->get_int('high_temperature', 'post', '0'),
+        'low_temperature' => $nv_Request->get_int('low_temperature', 'post', 0),
+        'rain' => $nv_Request->get_int('rain', 'post', 0),
     ];
     if (isset($_FILES['avatar']) && !empty($_FILES['avatar']['name'])) {
         $upload = new NukeViet\Files\Upload($admin_info['allow_files_type'], $global_config['forbid_extensions'], $global_config['forbid_mimes'], NV_UPLOAD_MAX_FILESIZE, NV_MAX_WIDTH, NV_MAX_HEIGHT);
@@ -82,12 +74,12 @@ if ($nv_Request->get_int('submit', 'post', 0)) {
         $sql = "UPDATE " . NV_PREFIXLANG . "_" . $module_data . " SET 
                 `id_city` = :id_city,          
                 `date_forecast` = :date_forecast,
-                `id_time_period` = :id_time_period,
                 `description` = :description,
                 `wind_speed` = :wind_speed,
-                `temperature_note` = :temperature_note,
-                `temperature_value` = :temperature_value,
-                `avatar`=:avatar
+                `high_temperature` = :high_temperature,
+                `low_temperature` = :low_temperature,
+                `avatar`=:avatar,
+                `rain`=:rain
             WHERE 
                 `id` = :id";
         $sth = $db->prepare($sql);
@@ -97,11 +89,11 @@ if ($nv_Request->get_int('submit', 'post', 0)) {
         $max_weight = $weight_query->fetch();
         $new_weight = $max_weight['max_weight'] + 1;
         $sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . " (
-            `id_city`, `date_forecast`, `id_time_period`, `description`, 
-            `wind_speed`, `temperature_note`, `temperature_value`, `weight`,`avatar`
+            `id_city`, `date_forecast`,  `description`, 
+            `wind_speed`, `high_temperature`, `low_temperature`, `weight`,`avatar`,`rain`
         ) VALUES (
-            :id_city, :date_forecast, :id_time_period, :description, 
-            :wind_speed, :temperature_note, :temperature_value, :new_weight, :avatar
+            :id_city, :date_forecast, :description, 
+            :wind_speed, :high_temperature, :low_temperature, :new_weight, :avatar,:rain
         )";
         $sth = $db->prepare($sql);
         $sth = $db->prepare($sql);
@@ -136,12 +128,12 @@ if ($isEditing) {
     $weather = [
         'id_city' => 0,
         'date_forecast' => '',
-        'id_time_period' => 0,
         'description' => '',
         'wind_speed' => '',
-        'temperature_note' => '',
-        'temperature_value' => '',
-        'avatar'=>''
+        'high_temperature' => '',
+        'low_temperature' => '',
+        'avatar'=>'',
+        'rain'=>''
     ];
     $xtpl->assign('WEATHER', $weather);
 }
@@ -156,16 +148,7 @@ foreach ($citys as $city) {
     }
     $xtpl->parse('main.city_loop');
 }
-foreach ($times as $time) {
-    $xtpl->assign('TIME_ID', $time['id']);
-    $xtpl->assign('TIME_NAME', $time['time_period']);
-    if ($weather['id_time_period'] == $time['id']) {
-        $xtpl->assign('SELECTED_TIME', 'selected="selected"');
-    } else {
-        $xtpl->assign('SELECTED_TIME', '');
-    }
-    $xtpl->parse('main.time_loop');
-}
+
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('ALERT_MESSAGE', $message);
 $xtpl->assign('ALERT_TYPE', $type);

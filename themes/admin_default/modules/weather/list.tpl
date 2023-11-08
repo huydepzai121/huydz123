@@ -1,7 +1,6 @@
 
 <!-- BEGIN: main -->
 
-<h1 class="text-center mb-4">Quản lý danh sách sinh viên</h1>
 <div class="d-flex justify-content-end mb-3 text-center">
     <form class="form-inline" method="post" action="">
         <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" aria-label="Search" name="timkiem">
@@ -15,11 +14,11 @@
             <th class="text-center">STT</th>
             <th class="text-center">Tên thành phố:</th>
             <th class="text-center">Ngày dự báo:</th>
-            <th class="text-center">Khoảng thời gian:</th>
-            <th class="text-center">Mô tả:</th>
+            <th class="text-center">Nhiệt độ cao:</th>
+            <th class="text-center">Nhiệt độ thấp:</th>
             <th class="text-center">Tốc độ gió:</th>
-            <th class="text-center">Ghi chú nhiệt độ:</th>
-            <th class="text-center">Giá trị nhiệt độ:</th>
+            <th class="text-center">Mưa:</th>
+            <th class="text-center">Ghi chú:</th>
             <th class="text-center">Ảnh:</th>
             <th class="text-center">Chức năng</th>
         </thead>
@@ -35,11 +34,11 @@
             </td>
             <td class="text-center">{WEATHER.name}</td>
             <td class="text-center">{WEATHER.date_forecast}</td>
-            <td class="text-center">{WEATHER.time_period}</td>
-            <td class="text-center">{WEATHER.description}</td>
+            <td class="text-center">{WEATHER.high_temperature}</td>
+            <td class="text-center">{WEATHER.low_temperature}</td>
             <td class="text-center">{WEATHER.wind_speed}</td>
-            <td class="text-center">{WEATHER.temperature_note}</td>
-            <td class="text-center">{WEATHER.temperature_value}</td>
+            <td class="text-center">{WEATHER.rain}</td>
+            <td class="text-center">{WEATHER.description}</td>
             <td class="text-center"><img src="{WEATHER.avatar}" width="42.35px" height="42.35px" alt="Avatar" class="img-thumbnail"></td>
             <td class="text-center">
                 <a href="{WEATHER.url_edit}" title="Sửa" class="btn btn-primary btn-sm">Sửa</a>
