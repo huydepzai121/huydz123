@@ -19,7 +19,7 @@
 <!-- IF !IS_SUBMIT -->
 <!-- Hiển thị bảng khi không có submit -->
 <table class="table table-bordered table-striped">
-    git
+
     <tbody>
     <!-- BEGIN: table_loop -->
     <tr>
