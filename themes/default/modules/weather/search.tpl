@@ -3,25 +3,22 @@
     <div class="search-header">
         Dự báo thời tiết
     </div>
-    <form method="post" action="" id="weather-form">
+    <form method="post" action="{WEATHER.url_search}">
         <div class="form-group">
-            <select class="form-control" name="id_city" id="id_city">
+            <select class="form-control" name="city" id="city">
+                <option value="">Select a City</option>
                 <!-- BEGIN: city_loop -->
                 <option value="{CITY.name}" {CITY.selected}>{CITY.name}</option>
                 <!-- END: city_loop -->
             </select>
         </div>
-        <button type="submit" class="btn search-button" name="submit">Tìm kiếm</button>
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
     </form>
 </div>
-
-<!-- IF !IS_SUBMIT -->
-
 <div class="scroll-table">
-
-    <table class="table table-bordered table-striped" id="weather-table">
-        <!-- BEGIN: table_loop -->
+    <table class="table table-bordered table-striped">
         <tbody>
+        <!-- BEGIN: loop -->
         <tr>
             <td class="text-center">{WEATHER.name}</td>
             <td class="text-center">{WEATHER.date_forecast}</td>
@@ -36,29 +33,10 @@
                 </div>
             </td>
         </tr>
-        <!-- END: table_loop -->
+        <!-- END: loop -->
         </tbody>
     </table>
 </div>
-
-<!-- ENDIF -->
-<!-- ELSE -->
-<!-- BEGIN: loop -->
-<div class="weather-card mb-4 mt-5">
-    <div class="weather-card-body">
-        <div class="city">{WEATHER.name}</div>
-        <div class="date_forecast">{WEATHER.date_forecast}</div>
-        <div class="description">{WEATHER.description}</div>
-        <div class="temperature">{WEATHER.low_temperature}°C  {WEATHER.high_temperature}°C</div>
-        <div class="weather-details">
-            <div class="detail-item">Gió: {WEATHER.wind_speed} km/h</div>
-        </div>
-        <div class="weather-details">
-            <div class="detail-item">Lượng mưa: {WEATHER.rain} mm</div>
-        </div>
-    </div>
-</div>
-<!-- END: loop -->
 <!-- Phần hiển thị phân trang -->
 <nav aria-label="Page navigation" class="text-center">
     <ul class="pagination">
@@ -220,7 +198,6 @@
         border-radius: 0.5rem; /* Bo góc */
         margin-bottom: 50px;
     }
-
     .search-header {
         font-size: 32px;
         color: #333333;
@@ -244,29 +221,8 @@
     }
     .scroll-table{
         overflow-y: auto;
-        max-height: 500px;
+        height: 500px;
         margin-bottom: 20px;
     }
 </style>
-<script>
-    document.getElementById("weather-form").addEventListener("submit", function(event) {
-        // Ngăn chặn việc submit form mặc định
-        event.preventDefault();
-
-        // Kiểm tra xem form đã được submit hay chưa
-        var isSubmit = /* Thực hiện kiểm tra ở đây */;
-
-        if (isSubmit) {
-            // Nếu form đã được submit, ẩn bảng bằng cách đặt display thành none
-            document.getElementById("weather-table").style.display = "none";
-
-            // Đặt chiều cao của scrollable area thành auto sau khi submit
-            document.querySelector(".scroll-table").style.height = "auto";
-        }
-    });
-
-    // JavaScript để đặt chiều cao của scrollable area
-    var scrollTable = document.querySelector(".scroll-table");
-    scrollTable.style.height = "500px"; // Đặt chiều cao mặc định
-</script>
 <!-- END: main -->

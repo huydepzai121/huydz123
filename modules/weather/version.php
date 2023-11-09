@@ -15,7 +15,7 @@ if (!defined('NV_ADMIN') or !defined('NV_MAINFILE')) {
 
 $module_version = [
     'name' => 'Dự báo thời tiết',
-    'modfuncs' => 'main,rss',
+    'modfuncs' => 'main,rss,search-city',
     'is_sysmod' => 1,
     'virtual' => 1,
     'version' => '4.5.04',

@@ -1,2 +1,0 @@
-[Wed, 08 Nov 2023 19:37:55 -0800] [localhost] [::1] [User Notice(1024): SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo for 1270.0.1 failed: No such host is known. ] [FILE: /vendor/vinades/nukeviet/Core/Database.php] [LINE: 94]
-[Wed, 08 Nov 2023 19:37:55 -0800] [localhost] [::1] [User Error(256): Sorry! Could not connect to data server] [FILE: /includes/mainfile.php] [LINE: 281]
