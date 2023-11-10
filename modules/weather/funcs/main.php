@@ -41,12 +41,8 @@ if ($is_submit) {
     $stmt = $db->prepare('SELECT ' . NV_PREFIXLANG . '_' . $module_data . '.id, ' . NV_PREFIXLANG . '_' . $module_data . '_city.name, date_forecast, description, wind_speed, high_temperature, low_temperature, avatar,rain FROM ' . NV_PREFIXLANG . '_' . $module_data . '
         INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_city 
         ON ' . NV_PREFIXLANG . '_' . $module_data . '.id_city=' . NV_PREFIXLANG . '_' . $module_data . '_city.id 
-        WHERE ' . NV_PREFIXLANG . '_' . $module_data . '_city.name LIKE :city_name
-        ORDER BY weight ASC
-        LIMIT :start, :records_per_page');
+        WHERE ' . NV_PREFIXLANG . '_' . $module_data . '_city.name LIKE :city_name');
     $stmt->bindValue(':city_name', '%' . $cityName . '%', PDO::PARAM_STR);
-    $stmt->bindValue(':start', $start, PDO::PARAM_INT);
-    $stmt->bindValue(':records_per_page', $records_per_page, PDO::PARAM_INT);
     $stmt->execute();
 
     $array_data = $stmt->fetchAll();
@@ -54,12 +50,7 @@ if ($is_submit) {
 else{
     $stmt = $db->prepare('SELECT ' . NV_PREFIXLANG . '_' . $module_data . '.id, ' . NV_PREFIXLANG . '_' . $module_data . '_city.name, date_forecast, description, wind_speed, high_temperature, low_temperature, avatar,rain FROM ' . NV_PREFIXLANG . '_' . $module_data . '
         INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_city 
-        ON ' . NV_PREFIXLANG . '_' . $module_data . '.id_city=' . NV_PREFIXLANG . '_' . $module_data . '_city.id 
-       
-        ORDER BY weight ASC
-        LIMIT :start, :records_per_page');
-    $stmt->bindValue(':start', $start, PDO::PARAM_INT);
-    $stmt->bindValue(':records_per_page', $records_per_page, PDO::PARAM_INT);
+        ON ' . NV_PREFIXLANG . '_' . $module_data . '.id_city=' . NV_PREFIXLANG . '_' . $module_data . '_city.id');
     $stmt->execute();
 
     $array_data = $stmt->fetchAll();

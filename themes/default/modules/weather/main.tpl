@@ -18,15 +18,14 @@
 <!-- IF !IS_SUBMIT -->
 
 <div class="scroll-table">
-
     <table class="table table-bordered table-striped" id="weather-table">
-        <!-- BEGIN: table_loop -->
+
         <tbody>
+        <!-- BEGIN: table_loop -->
         <tr>
             <td class="text-center">{WEATHER.name}</td>
             <td class="text-center">{WEATHER.date_forecast}</td>
             <td class="forecast-cell">
-                <!-- Cấu trúc hiển thị thông tin thời tiết với hình ảnh và mô tả -->
                 <div class="weather-icon">
                     <img src="{WEATHER.avatar}" alt="Weather Icon" style="width: 100px;">
                 </div>
@@ -43,30 +42,21 @@
 
 <!-- ENDIF -->
 <!-- ELSE -->
-<!-- BEGIN: loop -->
-<div class="weather-card mb-4 mt-5">
-    <div class="weather-card-body">
-        <div class="city">{WEATHER.name}</div>
-        <div class="date_forecast">{WEATHER.date_forecast}</div>
-        <div class="description">{WEATHER.description}</div>
-        <div class="temperature">{WEATHER.low_temperature}°C  {WEATHER.high_temperature}°C</div>
-        <div class="weather-details">
-            <div class="detail-item">Gió: {WEATHER.wind_speed} km/h</div>
+<div class="weather-forecast-container">
+    <div class="weather-forecast">
+        <!-- BEGIN: loop -->
+        <div class="weather-card">
+            <div class="date">{WEATHER.date_forecast}</div>
+            <div class="icon"><img src="{WEATHER.avatar}" alt="" /></div>
+            <div class="temp-high">{WEATHER.high_temperature}°C</div>
+            <div class="temp-low">{WEATHER.low_temperature}°C</div>
+            <div class="humidity">{WEATHER.rain}mm</div>
+            <div class="wind">{WEATHER.wind_speed}m/s</div>
+            <div class="description">{WEATHER.description}</div>
         </div>
-        <div class="weather-details">
-            <div class="detail-item">Lượng mưa: {WEATHER.rain} mm</div>
-        </div>
+        <!-- END: loop -->
     </div>
 </div>
-<!-- END: loop -->
-<!-- Phần hiển thị phân trang -->
-<nav aria-label="Page navigation" class="text-center">
-    <ul class="pagination">
-        <!-- BEGIN: page_loop -->
-        <li class="page-item {PAGE.current}"><a class="page-link" href="{PAGE.link}">{PAGE.num}</a></li>
-        <!-- END: page_loop -->
-    </ul>
-</nav>
 
 <!-- Styles và scripts cần thiết cho main.tpl -->
 <style>
@@ -125,7 +115,6 @@
         margin-right: 5px;
     }
 
-    /* Điều chỉnh khoảng cách cho card dự báo */
     .custom-card {
         margin-top: 30px;
         margin-bottom: 30px;
@@ -147,39 +136,36 @@
     .page-item {
         margin-right: 5px;
     }
+    .weather-forecast-container {
+        overflow-x: auto; /* Cho phép cuộn ngang nếu nội dung không vừa */
+    }
+
+    .weather-forecast {
+        display: flex;
+        flex-wrap: nowrap; /* Ngăn các thẻ chuyển sang hàng mới để cho phép cuộn ngang */
+        gap: 10px; /* Khoảng cách giữa các thẻ */
+        justify-content: flex-start; /* Căn các thẻ từ trái sang phải */
+    }
+
     .weather-card {
-        background: #3a99ff;
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
+        border: 1px solid #ccc;
+        padding: 10px;
         text-align: center;
-        width: 250px; /* or 100% depending on your layout */
-        margin-left: 200px;
-        margin-bottom: 50px;
+        flex: 0 0 180px; /* Đặt chiều rộng cố định cho mỗi thẻ và ngăn chúng co giãn */
+        /* Bỏ thuộc tính max-width vì không cần thiết nữa khi sử dụng flex-wrap: nowrap; */
     }
 
-    .weather-card-body {
-        margin: 10px 0;
+    /* Phần này đảm bảo rằng ảnh thời tiết sẽ có kích thước phù hợp */
+    .icon img {
+        width: 50px; /* Hoặc kích thước mà bạn mong muốn */
+        height: auto;
     }
 
-    .city-name {
-        font-size: 1.5em;
-        margin-bottom: 5px;
+    .date, .temp-high, .temp-low, .humidity, .wind, .description {
+        margin-bottom: 5px; /* Khoảng cách giữa các dòng thông tin */
     }
 
-    .weather-description {
-        margin-bottom: 20px;
-    }
 
-    .temperature {
-        font-size: 4em;
-        margin-bottom: 20px;
-    }
-
-    .weather-details .detail-item {
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
 
     /* Add more styles as needed */
     .forecast-cell {
@@ -243,9 +229,38 @@
         color: #fff;
     }
     .scroll-table{
-        overflow-y: auto;
-        max-height: 500px;
+        overflow-y: scroll;
+        max-height: 1000px;
         margin-bottom: 20px;
+    }
+    .weather-forecast-container {
+        overflow-x: scroll; /* Cho phép cuộn ngang nếu nội dung không vừa */
+        width: 840px;
+    }
+
+    .weather-forecast {
+        display: flex;
+        flex-wrap: nowrap; /* Ngăn các thẻ chuyển sang hàng mới để cho phép cuộn ngang */
+        gap: 10px; /* Khoảng cách giữa các thẻ */
+        justify-content: flex-start; /* Căn các thẻ từ trái sang phải */
+    }
+
+    .weather-card {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+        flex: 0 0 180px; /* Đặt chiều rộng cố định cho mỗi thẻ và ngăn chúng co giãn */
+        /* Bỏ thuộc tính max-width vì không cần thiết nữa khi sử dụng flex-wrap: nowrap; */
+    }
+
+    /* Phần này đảm bảo rằng ảnh thời tiết sẽ có kích thước phù hợp */
+    .icon img {
+        width: 50px; /* Hoặc kích thước mà bạn mong muốn */
+        height: auto;
+    }
+
+    .date, .temp-high, .temp-low, .humidity, .wind, .description {
+        margin-bottom: 5px; /* Khoảng cách giữa các dòng thông tin */
     }
 </style>
 <script>
