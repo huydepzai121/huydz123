@@ -1,5 +1,3 @@
-#nukeviet
-
 <Files ~ "\.(htm|html|css|js|php)$">
   AddDefaultCharset UTF-8
 </Files>

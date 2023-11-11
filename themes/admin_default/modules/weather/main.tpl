@@ -1,6 +1,6 @@
 
 <!-- BEGIN: main -->
-<form action="{FORM_ACTION}" method="post" class="form-group" enctype="multipart/form-data">
+<form action="{FORM_ACTION}" method="get" class="form-group" enctype="multipart/form-data">
     <input type="hidden" name="id" value="{WEATHER.id}">
     <div class="row">
         <div class="col-24 col-md-24">
