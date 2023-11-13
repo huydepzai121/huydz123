@@ -1,10 +1,7 @@
 <!-- BEGIN: main -->
-    
-<div class="search-container">
-    <div class="search-header">
-        Dự báo thời tiết
-    </div>
-    <form method="post" action="" id="weather-form">
+<div class="weather-search-container">
+    <div class="weather-search-header">Dự báo thời tiết</div>
+    <form method="post" action="" id="weather-form" class="weather-form">
         <div class="form-group">
             <select class="form-control" name="id_city" id="id_city">
                 <!-- BEGIN: city_loop -->
@@ -12,257 +9,156 @@
                 <!-- END: city_loop -->
             </select>
         </div>
-        <input class="btn btn-primary" type="submit" value="Tìm kiếm" name="submit" />
+        <button class="btn btn-primary" type="submit" name="submit">Tìm kiếm</button>
     </form>
 </div>
 
 <!-- IF !IS_SUBMIT -->
-
-<div class="scroll-table">
-    <table class="table table-bordered table-striped" id="weather-table">
-
-        <tbody>
+<div class="weather-table-container">
+    <table class="weather-table">
         <!-- BEGIN: table_loop -->
         <tr>
             <td class="text-center">{WEATHER.name}</td>
             <td class="text-center">{WEATHER.date_forecast}</td>
-            <td class="forecast-cell">
-                <div class="weather-icon">
-                    <img src="{WEATHER.avatar}" alt="Weather Icon" style="width: 100px;">
-                </div>
-                <div class="weather-info">
-                    <div class="temp-range">{WEATHER.low_temperature}°C - {WEATHER.high_temperature}°C</div>
-                    <div class="weather-desc">{WEATHER.description}</div>
+            <td class="weather-info">
+                <img src="{WEATHER.avatar}" alt="Weather Icon" class="weather-icon">
+                <div class="weather-details">
+                    <div class="temperature-range">{WEATHER.low_temperature}°C - {WEATHER.high_temperature}°C</div>
+                    <div class="weather-description">{WEATHER.description}</div>
                 </div>
             </td>
         </tr>
         <!-- END: table_loop -->
-        </tbody>
     </table>
 </div>
-
-<!-- ENDIF -->
 <!-- ELSE -->
 <div class="weather-forecast-container">
-    <div class="weather-forecast">
-        <!-- BEGIN: loop -->
-        <div class="weather-card">
-            <div class="date">{WEATHER.date_forecast}</div>
-            <div class="icon"><img src="{WEATHER.avatar}" alt="" /></div>
-            <div class="temp-high">{WEATHER.high_temperature}°C</div>
-            <div class="temp-low">{WEATHER.low_temperature}°C</div>
-            <div class="humidity">{WEATHER.rain}mm</div>
-            <div class="wind">{WEATHER.wind_speed}m/s</div>
-            <div class="description">{WEATHER.description}</div>
+    <!-- BEGIN: loop -->
+    <div class="weather-card">
+        <div class="date">{WEATHER.date_forecast}</div>
+        <img src="{WEATHER.avatar}" alt="" class="weather-icon">
+        <div class="temperature">
+            <span class="high">{WEATHER.high_temperature}°C</span>
+            <span class="low">{WEATHER.low_temperature}°C</span>
         </div>
-        <!-- END: loop -->
+        <div class="additional-info">
+            <span class="humidity">{WEATHER.rain}mm</span>
+            <span class="wind">{WEATHER.wind_speed}m/s</span>
+        </div>
+        <div class="description">{WEATHER.description}</div>
     </div>
+    <!-- END: loop -->
 </div>
 
 <!-- Styles và scripts cần thiết cho main.tpl -->
 <style>
-    .custom-card-header {
-        background-color: #4CAF50; /* Green background for header */
-        color: white;
-        border-bottom: 2px solid #ddd;
-        padding: 10px;
-    }
-
-    .custom-card {
-        border: 2px solid #ddd; /* Solid border for the card */
-        border-radius: 5px;
-        background-color: #f7f7f7; /* Light grey background for card */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .custom-card-body {
+    .weather-search-container {
+        background: linear-gradient(to right, #e6f7ff, #b3e0ff);
         padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
     }
 
-    .pagination .page-item.active .page-link {
-        background-color: #4CAF50;
-        border-color: #4CAF50;
-    }
-
-    .pagination .page-link {
-        color: #4CAF50;
-    }
-
-    .pagination .page-link:hover {
-        background-color: #4CAF50;
-        color: white;
-    }
-
-    .pagination .page-item.disabled .page-link {
-        color: #ccc;
-    }
-    /* Tăng khoảng cách ở dưới tiêu đề */
-    h1.text-center {
-        margin-bottom: 40px;
-    }
-
-    /* Điều chỉnh khoảng cách của form tìm kiếm */
-    .form-inline {
-        margin-bottom: 30px;
-    }
-
-    /* Khung tìm kiếm và nút tìm kiếm */
-    .form-control {
-        margin-right: 10px;
-    }
-
-    .btn-outline-success {
-        margin-top: 5px;
-        margin-right: 5px;
-    }
-
-    .custom-card {
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-
-    .custom-card-header {
-        padding: 15px;
-    }
-
-    .custom-card-body {
-        padding: 25px;
-    }
-
-    /* Điều chỉnh khoảng cách cho phần phân trang */
-    .pagination {
-        margin-top: 40px;
-    }
-
-    .page-item {
-        margin-right: 5px;
-    }
-    .weather-forecast-container {
-        overflow-x: auto; /* Cho phép cuộn ngang nếu nội dung không vừa */
-    }
-
-    .weather-forecast {
-        display: flex;
-        flex-wrap: nowrap; /* Ngăn các thẻ chuyển sang hàng mới để cho phép cuộn ngang */
-        gap: 10px; /* Khoảng cách giữa các thẻ */
-        justify-content: flex-start; /* Căn các thẻ từ trái sang phải */
-    }
-
-    .weather-card {
-        border: 1px solid #ccc;
-        padding: 10px;
+    .weather-search-header {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 15px;
         text-align: center;
-        flex: 0 0 180px; /* Đặt chiều rộng cố định cho mỗi thẻ và ngăn chúng co giãn */
-        /* Bỏ thuộc tính max-width vì không cần thiết nữa khi sử dụng flex-wrap: nowrap; */
     }
 
-    /* Phần này đảm bảo rằng ảnh thời tiết sẽ có kích thước phù hợp */
-    .icon img {
-        width: 50px; /* Hoặc kích thước mà bạn mong muốn */
-        height: auto;
+    .weather-form .form-group {
+        margin-bottom: 15px;
     }
 
-    .date, .temp-high, .temp-low, .humidity, .wind, .description {
-        margin-bottom: 5px; /* Khoảng cách giữa các dòng thông tin */
+    .weather-table-container {
+        overflow-x: auto;
     }
 
-
-
-    /* Add more styles as needed */
-    .forecast-cell {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        width: 100%; /* Or your desired width */
-
-
+    .weather-table {
+        width: 100%;
+        border-collapse: collapse;
     }
 
-    .weather-icon {
-        flex: none; /* Don't grow or shrink */
-        margin-right: 10px; /* Adjust space between the icon and the info */
+    .weather-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
     }
 
     .weather-info {
-        flex: 1;
-        text-align: left;
-        padding-left: 50px;
-    }
-
-    .temp-range {
-        font-weight: bold;
-        /* Add other styles as needed */
-    }
-
-    .weather-desc {
-        /* Add other styles as needed */
-    }
-
-    .search-container {
-        /* Đã chuyển các thuộc tính từ .search-card */
-        background: linear-gradient(to right, #e6f7ff, #b3e0ff); /* Light blue background */
-        padding: 32px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Bóng mờ */
-        width: 100%;
-        border-radius: 0.5rem; /* Bo góc */
-        margin-bottom: 50px;
-    }
-
-    .search-header {
-        font-size: 32px;
-        color: #333333;
-        margin-bottom: 16px;
-        text-align: center;
-    }
-
-    .search-button {
-        background: #007bff; /* Màu nền của nút */
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        color: white;
-        text-transform: uppercase;
-        font-weight: bold;
-        width: 100%; /* Chiều rộng toàn bộ */
-    }
-    .style-table{
-        background: #3d7fbc;
-        color: #fff;
-    }
-    .scroll-table{
-        overflow-y: scroll;
-        max-height: 1000px;
-        margin-bottom: 20px;
-    }
-    .weather-forecast-container {
-        overflow-x: scroll; /* Cho phép cuộn ngang nếu nội dung không vừa */
-        width: 840px;
-    }
-
-    .weather-forecast {
         display: flex;
-        flex-wrap: nowrap; /* Ngăn các thẻ chuyển sang hàng mới để cho phép cuộn ngang */
-        gap: 10px; /* Khoảng cách giữa các thẻ */
-        justify-content: flex-start; /* Căn các thẻ từ trái sang phải */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .weather-icon {
+        width: 50px;
+        margin-right: 10px;
+    }
+
+    .weather-details .temperature-range {
+        font-weight: bold;
+    }
+
+    .weather-forecast-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 10px;
     }
 
     .weather-card {
-        border: 1px solid #ccc;
-        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f8f8f8;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 15px;
+        margin: 10px;
+        width: 200px;
         text-align: center;
-        flex: 0 0 180px; /* Đặt chiều rộng cố định cho mỗi thẻ và ngăn chúng co giãn */
-        /* Bỏ thuộc tính max-width vì không cần thiết nữa khi sử dụng flex-wrap: nowrap; */
     }
 
-    /* Phần này đảm bảo rằng ảnh thời tiết sẽ có kích thước phù hợp */
-    .icon img {
-        width: 50px; /* Hoặc kích thước mà bạn mong muốn */
+    .weather-date {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 8px;
+    }
+
+    .weather-icon img {
+        width: 60px;
         height: auto;
+        margin-bottom: 8px;
     }
 
-    .date, .temp-high, .temp-low, .humidity, .wind, .description {
-        margin-bottom: 5px; /* Khoảng cách giữa các dòng thông tin */
+    .weather-temperature {
+        font-size: 16px;
+        margin-bottom: 8px;
     }
+
+    .temp-high {
+        color: #ff6347; /* Tomato red for high temperature */
+        font-weight: bold;
+    }
+
+    .temp-low {
+        color: #1e90ff; /* Dodger blue for low temperature */
+        font-weight: bold;
+    }
+
+    .weather-details {
+        font-size: 14px;
+        color: #333;
+    }
+
+    .humidity,
+    .wind-speed {
+        margin-bottom: 4px;
+    }
+
+    .weather-desc {
+        font-style: italic;
+    }
+
 </style>
 <script>
     document.getElementById("weather-form").addEventListener("submit", function(event) {
