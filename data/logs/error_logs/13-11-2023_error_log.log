@@ -14,3 +14,6 @@ Stack trace:
 #3 {main}
   thrown] [FILE: /vendor/vinades/nukeviet/Core/Database.php] [LINE: 580]
 [Mon, 13 Nov 2023 01:26:49 -0800] [localhost] [::1] [Warning(2): Undefined array key "list_teacher"] [FILE: /modules/weather/admin/list.php] [LINE: 114]
+[Mon, 13 Nov 2023 05:30:22 -0800] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/weather/admin/main.php] [LINE: 160]
+[Mon, 13 Nov 2023 05:30:22 -0800] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/weather/admin/main.php] [LINE: 161]
+[Mon, 13 Nov 2023 05:49:46 -0800] [localhost] [::1] [Run-time notices(8192): Implicit conversion from float 1566249.9999999998 to int loses precision] [FILE: /vendor/vinades/nukeviet/Files/Upload.php] [LINE: 163]

@@ -22,7 +22,7 @@ $weather = [];
 $city_cache_file = NV_LANG_DATA . '_' . $module_name . '_city_data_' . NV_CACHE_PREFIX . '.cache';
 
 $weather_cache_file = NV_LANG_DATA . '_' . $module_name . '_weather_data_' . NV_CACHE_PREFIX . '.cache';
-    $cache_ttl = 600; // Thời gian cache là 600 giây = 10 phút
+$cache_ttl = 600; // Thời gian cache là 600 giây = 10 phút
 
 // Cache cho bảng city
 if (($cache = $nv_Cache->getItem($module_name, $city_cache_file)) != false) {
@@ -32,7 +32,6 @@ if (($cache = $nv_Cache->getItem($module_name, $city_cache_file)) != false) {
     $cache = serialize($citys);
     $nv_Cache->setItem($module_name, $city_cache_file, $cache, $cache_ttl);
 }
-
 function createAlias($str) {
     $str = strtolower(trim($str));
     $str = str_replace(
@@ -45,8 +44,6 @@ function createAlias($str) {
     return $str;
 }
 
-
-// Xử lý dữ liệu từ form
 $id = $nv_Request->get_int('id', 'get', 0);
 $isEditing = $id > 0;
 
@@ -56,17 +53,14 @@ if ($nv_Request->get_int('submit', 'post', 0)) {
         'date_forecast' => $nv_Request->get_title('date_forecast', 'post', ''),
         'description' => $nv_Request->get_title('description', 'post', ''),
         'wind_speed' => $nv_Request->get_int('wind_speed', 'post', 0),
-        'high_temperature' => $nv_Request->get_int('high_temperature', 'post', 0),
+        'high_temperature' => $nv_Request->get_int('high_temperature', 'post', '0'),
         'low_temperature' => $nv_Request->get_int('low_temperature', 'post', 0),
-        'rain' => $nv_Request->get_int('rain', 'post', 0),
+        'rain' => $nv_Request->get_int('rain', 'post', 0)
     ];
-
     // Tạo alias từ tên thành phố
     $cityNameQuery = $db->query("SELECT name FROM " . NV_PREFIXLANG . "_" . $module_data . "_city WHERE id=" . $data['id_city']);
     $cityName = $cityNameQuery->fetchColumn();
     $data['alias'] = createAlias($cityName);
-
-    // Xử lý tải lên avatar
     if (isset($_FILES['avatar']) && !empty($_FILES['avatar']['name'])) {
         $upload = new NukeViet\Files\Upload($admin_info['allow_files_type'], $global_config['forbid_extensions'], $global_config['forbid_mimes'], NV_UPLOAD_MAX_FILESIZE, NV_MAX_WIDTH, NV_MAX_HEIGHT);
         $upload->setLanguage($lang_global);
@@ -76,17 +70,20 @@ if ($nv_Request->get_int('submit', 'post', 0)) {
             mkdir($path, 0777, true);
         }
 
+        // Xử lý file tải lên và lưu vào thư mục.
         $upload_info = $upload->save_file($_FILES['avatar'], $path, false, $global_config['nv_auto_resize']);
+
         if (!empty($upload_info['complete'])) {
+            // Lưu đường dẫn tương đối của ảnh vào mảng $data.
             $data['avatar'] = NV_BASE_SITEURL . 'uploads/' . $module_upload . '/' . $upload_info['basename'];
         } else {
+            // Xử lý lỗi tải lên, set 'avatar' thành chuỗi rỗng hoặc ghi log lỗi tùy bạn.
             $data['avatar'] = '';
         }
     } else {
+        // Nếu không có file được tải lên, giữ nguyên giá trị avatar hiện tại hoặc set thành chuỗi rỗng.
         $data['avatar'] = isset($weather['avatar']) ? $weather['avatar'] : '';
     }
-
-    // Cập nhật hoặc thêm mới dữ liệu
     if ($isEditing) {
         $sql = "UPDATE " . NV_PREFIXLANG . "_" . $module_data . " SET 
                 `id_city` = :id_city,          
@@ -107,13 +104,14 @@ if ($nv_Request->get_int('submit', 'post', 0)) {
         $max_weight = $weight_query->fetch();
         $new_weight = $max_weight['max_weight'] + 1;
         $sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . " (
-            `id_city`, `date_forecast`,  `description`, 
-            `wind_speed`, `high_temperature`, `low_temperature`, `weight`,`avatar`,`rain`, `alias`
+            `id_city`, `date_forecast`,  `des   cription`, 
+            `wind_speed`, `high_temperature`, `low_temperature`, `weight`,`avatar`,`rain`,`alias`
         ) VALUES (
             :id_city, :date_forecast, :description, 
-            :wind_speed, :high_temperature, :low_temperature, :new_weight, :avatar,:rain, :alias
+            :wind_speed, :high_temperature, :low_temperature, :new_weight, :avatar,:rain,:alias
         )";
         $sth = $db->prepare($sql);
+        // Bổ sung tham số mới cho weight
         $sth->bindParam(':new_weight', $new_weight, PDO::PARAM_INT);
     }
 
@@ -123,16 +121,17 @@ if ($nv_Request->get_int('submit', 'post', 0)) {
 
     if ($sth->execute()) {
         $message = ($isEditing) ? "Cập nhật thành công!" : "Thêm mới thành công!";
-        // Cập nhật cache hoặc xử lý khác sau khi cập nhật dữ liệu
+
+        $weather_data = $db->query("SELECT * FROM " . NV_PREFIXLANG . "_" . $module_data)->fetchAll();
+        $cache = serialize([$weather_data]);
+        $nv_Cache->setItem($module_name, $weather_cache_file, $cache, $cache_ttl);
     } else {
         $message = "Có lỗi xảy ra: " . implode(' ', $sth->errorInfo());
         $type = "error";
     }
 }
 
-// Xử lý hiển thị dữ liệu
 if ($isEditing) {
-    // Lấy dữ liệu cần chỉnh sửa
     $sql = "SELECT * FROM " . NV_PREFIXLANG . "_" . $module_data . " WHERE id=:id";
     $sth = $db->prepare($sql);
     $sth->bindParam(':id', $id, PDO::PARAM_INT);
@@ -140,7 +139,6 @@ if ($isEditing) {
     $weather = $sth->fetch();
     $xtpl->assign('WEATHER', $weather);
 } else {
-    // Chuẩn bị dữ liệu cho form thêm mới
     $weather = [
         'id_city' => 0,
         'date_forecast' => '',
@@ -148,13 +146,12 @@ if ($isEditing) {
         'wind_speed' => '',
         'high_temperature' => '',
         'low_temperature' => '',
-        'avatar' => '',
-        'rain' => ''
+        'avatar'=>'',
+        'rain'=>''
     ];
     $xtpl->assign('WEATHER', $weather);
 }
 
-// Xử lý hiển thị danh sách thành phố
 foreach ($citys as $city) {
     $xtpl->assign('CITY_ID', $city['id']);
     $xtpl->assign('CITY_NAME', $city['name']);
@@ -166,7 +163,6 @@ foreach ($citys as $city) {
     $xtpl->parse('main.city_loop');
 }
 
-// Phần hiển thị giao diện
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('ALERT_MESSAGE', $message);
 $xtpl->assign('ALERT_TYPE', $type);

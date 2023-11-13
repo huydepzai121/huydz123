@@ -1,6 +1,6 @@
 
 <!-- BEGIN: main -->
-<form action="{FORM_ACTION}" method="get" class="form-group" enctype="multipart/form-data">
+<form action="{FORM_ACTION}" method="post" class="form-group" enctype="multipart/form-data">
     <input type="hidden" name="id" value="{WEATHER.id}">
     <div class="row">
         <div class="col-24 col-md-24">
@@ -26,24 +26,25 @@
         <div class="col-24 col-md-24">
             <div class="form-group">
                 <label for="low_temperature">Nhiệt độ thấp</label>
-                <span><input type="number" name="low_temperature" class="form-control" value="{WEATHER.low_temperature}"required> °C</span>
+                <span><input type="number" name="low_temperature" class="form-control" value="{WEATHER.low_temperature}" required> °C</span>
             </div>
         </div>
         <div class="col-10 col-md-10">
             <div class="form-group">
                 <label for="temperature_value">Nhiệt độ cao:</label>
-                <span><input type="number" name="high_temperature" class="form-control" value="{WEATHER.high_temperature}"required> °C</span>
+                <span><input type="number" name="high_temperature" class="form-control" value="{WEATHER.high_temperature}" required> °C</span>
             </div>
         </div>
         <div class="col-10 col-md-10">
             <div class="form-group">
                 <label for="rain">Lượng mưa</label>
-                <span><input type="number" name="rain" class="form-control" value="{WEATHER.high_rain}"required> /mm</span>
+                <span><input type="number" name="rain" class="form-control" value="{WEATHER.rain}" required> /mm</span>
             </div>
         </div>
         <div class="col-24 col-md-24">
             <label>Ảnh đại diện từ máy tính:</label>
-            <input type="file" class="form-control-file" name="avatar" accept="image/*"  />
+            <input type="file" class="form-control-file" name="avatar" accept="image/*" />
+
         </div>
         <div class="col-24 col-md-24">
             <div class="form-group">
@@ -87,18 +88,5 @@
         }
     });
 
-</script>
-<script>   document.addEventListener('DOMContentLoaded', function() {
-        let type = "{ALERT_TYPE}";
-        let message = "{ALERT_MESSAGE}";
-
-        if (message && type) {
-            Swal.fire({
-                icon: type,
-                title: message,
-                showConfirmButton: true
-            });
-        }
-    });
 </script>
 <!-- END: main -->
