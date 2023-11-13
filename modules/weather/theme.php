@@ -26,7 +26,7 @@ function nv_theme_weather_main($array_data, $citys, $selectedCityName, $total_pa
     global $module_file, $module_info, $global_config, $lang_module,$module_name;
 
     $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
-    $baseLink = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
+
     $xtpl->assign('IS_SUBMIT', $is_submit);
     if ($is_submit) {
         foreach ($array_data as $row) {

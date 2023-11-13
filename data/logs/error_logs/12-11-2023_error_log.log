@@ -1,0 +1,24 @@
+[Sun, 12 Nov 2023 07:24:37 -0800] [localhost] [::1] [Warning(2): Undefined variable $nv_Request] [FILE: /modules/weather/theme.php] [LINE: 27]
+[Sun, 12 Nov 2023 07:24:37 -0800] [localhost] [::1] [Error(1): Uncaught Error: Call to a member function isset_request() on null in D:\xampp\htdocs\huydz\modules\weather\theme.php:27
+Stack trace:
+#0 D:\xampp\htdocs\huydz\modules\weather\funcs\main.php(28): nv_theme_weather_main(Array, Array, '')
+#1 D:\xampp\htdocs\huydz\index.php(369): require('D:\\xampp\\htdocs...')
+#2 {main}
+  thrown] [FILE: /modules/weather/theme.php] [LINE: 27]
+[Sun, 12 Nov 2023 07:30:18 -0800] [localhost] [::1] [Warning(2): file_get_contents(D:/xampp/htdocs/huydz/themes/default/modules/weather\search-city.tpl): Failed to open stream: No such file or directory] [FILE: /includes/xtemplate.class.php] [LINE: 1333]
+[Sun, 12 Nov 2023 07:49:49 -0800] [localhost] [::1] [Error(1): Uncaught ArgumentCountError: Too few arguments to function nv_theme_weather_search(), 3 passed in D:\xampp\htdocs\huydz\modules\weather\theme.php on line 28 and exactly 4 expected in D:\xampp\htdocs\huydz\modules\weather\theme.php:66
+Stack trace:
+#0 D:\xampp\htdocs\huydz\modules\weather\theme.php(28): nv_theme_weather_search(Array, Array, 'H\xC3\xA0 N\xE1\xBB\x99i')
+#1 D:\xampp\htdocs\huydz\modules\weather\funcs\main.php(31): nv_theme_weather_main(Array, Array, 'H\xC3\xA0 N\xE1\xBB\x99i', true)
+#2 D:\xampp\htdocs\huydz\index.php(369): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown] [FILE: /modules/weather/theme.php] [LINE: 66]
+[Sun, 12 Nov 2023 08:07:32 -0800] [localhost] [::1] [Warning(2): rename(D:/xampp/htdocs/huydz/data/tmp/853426a9e879b0dc8177950b619a08b3/modules/redday/language/.htaccess,D:/xampp/htdocs/huydz/modules/redday/language/.htaccess): The system cannot find the file specified (code: 2)] [FILE: /admin/extensions/upload.php] [LINE: 275]
+[Sun, 12 Nov 2023 08:11:37 -0800] [localhost] [::1] [Warning(2): Undefined variable $xtpl] [FILE: /modules/weather/theme.php] [LINE: 31]
+[Sun, 12 Nov 2023 08:11:37 -0800] [localhost] [::1] [Error(1): Uncaught Error: Call to a member function assign() on null in D:\xampp\htdocs\huydz\modules\weather\theme.php:31
+Stack trace:
+#0 D:\xampp\htdocs\huydz\modules\weather\funcs\main.php(31): nv_theme_weather_main(Array, Array, '', false)
+#1 D:\xampp\htdocs\huydz\index.php(369): require('D:\\xampp\\htdocs...')
+#2 {main}
+  thrown] [FILE: /modules/weather/theme.php] [LINE: 31]
+[Sun, 12 Nov 2023 08:28:10 -0800] [localhost] [::1] [Warning(2): Undefined variable $baseLink] [FILE: /modules/weather/theme.php] [LINE: 72]

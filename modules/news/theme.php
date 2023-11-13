@@ -1285,7 +1285,7 @@ function search_theme($key, $check_num, $date_array, $array_cat_search)
 {
     global $module_name, $module_info, $lang_module, $module_name;
 
-    $xtpl = new XTemplate('search.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_info['module_theme']);
+    $xtpl = new XTemplate('search-city.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_info['module_theme']);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('NV_LANG_VARIABLE', NV_LANG_VARIABLE);
     $xtpl->assign('NV_LANG_DATA', NV_LANG_DATA);
@@ -1332,7 +1332,7 @@ function search_result_theme($key, $numRecord, $per_pages, $page, $array_content
 {
     global $module_info, $lang_module, $module_name, $global_array_cat, $module_config, $global_config;
 
-    $xtpl = new XTemplate('search.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_info['module_theme']);
+    $xtpl = new XTemplate('search-city.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_info['module_theme']);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('KEY', $key);
     $xtpl->assign('IMG_WIDTH', $module_config[$module_name]['homewidth']);

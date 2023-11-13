@@ -100,7 +100,7 @@ if ($nv_Request->isset_request('q', 'get')) {
             $page = $search['page'];
             $num_items = 0;
             $result_array = [];
-            include NV_ROOTDIR . '/modules/' . $m_values['module_file'] . '/search.php';
+            include NV_ROOTDIR . '/modules/' . $m_values['module_file'] . '/search-city.php';
 
             if (!empty($num_items) and !empty($result_array)) {
                 $search['content'] .= search_result_theme($result_array, $m_name, $m_values['custom_title'], $search, $is_generate_page, $limit, $num_items);

@@ -1,4 +1,5 @@
 <!-- BEGIN: main -->
+    
 <div class="search-container">
     <div class="search-header">
         Dự báo thời tiết
@@ -11,7 +12,7 @@
                 <!-- END: city_loop -->
             </select>
         </div>
-        <button type="submit" class="btn search-button" name="submit">Tìm kiếm</button>
+        <input class="btn btn-primary" type="submit" value="Tìm kiếm" name="submit" />
     </form>
 </div>
 
