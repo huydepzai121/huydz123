@@ -44,7 +44,11 @@
         <div class="col-24 col-md-24">
             <label>Ảnh đại diện từ máy tính:</label>
             <input type="file" class="form-control-file" name="avatar" accept="image/*" />
-
+            <!-- BEGIN: has_avatar -->
+            <div class="col-24 col-md-24">
+                <img src="{AVATAR}" alt="Ảnh đại diện" id="avatar-preview" style="max-width: 100px; max-height: 100px;">
+            </div>
+            <!-- END: has_avatar -->
         </div>
         <div class="col-24 col-md-24">
             <div class="form-group">

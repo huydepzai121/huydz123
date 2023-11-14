@@ -3,6 +3,7 @@
     <div class="weather-search-header">Dự báo thời tiết</div>
     <form method="post" action="" id="weather-form" class="weather-form">
         <div class="form-group">
+            <input type="hidden" name="id" value="{WEATHER.id}">
             <select class="form-control" name="id_city" id="id_city">
                 <!-- BEGIN: city_loop -->
                 <option value="{CITY.name}" {CITY.selected}>{CITY.name}</option>
@@ -15,7 +16,7 @@
 
 <!-- IF !IS_SUBMIT -->
 <div class="weather-table-container">
-    <table class="weather-table">
+    <table class="weather-table table-striped">
         <!-- BEGIN: table_loop -->
         <tr>
             <td class="text-center">{WEATHER.name}</td>

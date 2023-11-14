@@ -104,7 +104,7 @@ if ($nv_Request->get_int('submit', 'post', 0)) {
         $max_weight = $weight_query->fetch();
         $new_weight = $max_weight['max_weight'] + 1;
         $sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . " (
-            `id_city`, `date_forecast`,  `des   cription`, 
+            `id_city`, `date_forecast`,  `description`, 
             `wind_speed`, `high_temperature`, `low_temperature`, `weight`,`avatar`,`rain`,`alias`
         ) VALUES (
             :id_city, :date_forecast, :description, 
@@ -130,7 +130,16 @@ if ($nv_Request->get_int('submit', 'post', 0)) {
         $type = "error";
     }
 }
-
+$xtpl->assign('LANG', $lang_module);
+$xtpl->assign('NV_LANG_VARIABLE', NV_LANG_VARIABLE);
+$xtpl->assign('NV_LANG_DATA', NV_LANG_DATA);
+$xtpl->assign('NV_BASE_ADMINURL', NV_BASE_ADMINURL);
+$xtpl->assign('NV_NAME_VARIABLE', NV_NAME_VARIABLE);
+$xtpl->assign('NV_OP_VARIABLE', NV_OP_VARIABLE);
+$xtpl->assign('MODULE_NAME', $module_name);
+$xtpl->assign('OP', $op);
+$xtpl->assign('ALERT_MESSAGE', $message);
+$xtpl->assign('ALERT_TYPE', $type);
 if ($isEditing) {
     $sql = "SELECT * FROM " . NV_PREFIXLANG . "_" . $module_data . " WHERE id=:id";
     $sth = $db->prepare($sql);
@@ -163,7 +172,6 @@ foreach ($citys as $city) {
     $xtpl->parse('main.city_loop');
 }
 
-$xtpl->assign('LANG', $lang_module);
 $xtpl->assign('ALERT_MESSAGE', $message);
 $xtpl->assign('ALERT_TYPE', $type);
 

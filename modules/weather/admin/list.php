@@ -63,7 +63,16 @@ if (isset($_GET['delete'])) {
     }
 }
 
-
+$xtpl->assign('LANG', $lang_module);
+$xtpl->assign('NV_LANG_VARIABLE', NV_LANG_VARIABLE);
+$xtpl->assign('NV_LANG_DATA', NV_LANG_DATA);
+$xtpl->assign('NV_BASE_ADMINURL', NV_BASE_ADMINURL);
+$xtpl->assign('NV_NAME_VARIABLE', NV_NAME_VARIABLE);
+$xtpl->assign('NV_OP_VARIABLE', NV_OP_VARIABLE);
+$xtpl->assign('MODULE_NAME', $module_name);
+$xtpl->assign('OP', $op);
+$xtpl->assign('ALERT_MESSAGE', $message);
+$xtpl->assign('ALERT_TYPE', $type);
 foreach ($weathers as $weather) {
     for ($j = 1; $j <= $total_records; $j++) {
         $xtpl->assign('J', $j);
@@ -104,9 +113,7 @@ for ($i = 1; $i <= $total_pages; $i++) {
     $xtpl->parse('main.page_loop');
 }
 
-$xtpl->assign('LANG', $lang_module);
-$xtpl->assign('ALERT_MESSAGE', $message);
-$xtpl->assign('ALERT_TYPE', $type);
+
 
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
