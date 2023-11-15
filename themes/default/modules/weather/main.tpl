@@ -39,12 +39,13 @@
         <div class="date">{WEATHER.date_forecast}</div>
         <img src="{WEATHER.avatar}" alt="" class="weather-icon">
         <div class="temperature">
-            <span class="high">{WEATHER.high_temperature}°C</span>
+            <span>Nhiệt độ: </span>
+            <span class="high">{WEATHER.high_temperature}°C -</span>
             <span class="low">{WEATHER.low_temperature}°C</span>
         </div>
         <div class="additional-info">
-            <span class="humidity">{WEATHER.rain}mm</span>
-            <span class="wind">{WEATHER.wind_speed}m/s</span>
+            <span class="humidity">Lượng mưa: {WEATHER.rain}mm</span></br>
+            <span class="wind">Tốc độ gió: {WEATHER.wind_speed}m/s</span>
         </div>
         <div class="description">{WEATHER.description}</div>
     </div>
