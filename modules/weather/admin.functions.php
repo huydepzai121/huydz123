@@ -13,16 +13,7 @@ if (!defined('NV_ADMIN') or !defined('NV_MAINFILE') or !defined('NV_IS_MODADMIN'
     exit('Stop!!!');
 }
 
-$allow_func = [
-    'main',
-    'content',
-    'alias',
-    'change_status',
-    'change_weight',
-    'del',
-    'view',
-    'list'
-];
+$allow_func = array('main','list');
 
 define('NV_IS_FILE_ADMIN', true);
 
@@ -30,4 +21,3 @@ if (defined('NV_IS_SPADMIN')) {
     $allow_func[] = 'config';
 }
 
-//

@@ -15,9 +15,10 @@ if (!defined('NV_ADMIN') or !defined('NV_MAINFILE')) {
 
 $module_version = [
     'name' => 'Dự báo thời tiết',
-    'modfuncs' => 'main,rss,search-city',
+    'modfuncs' => 'main',
+    'submenu' => 'main,list',
     'is_sysmod' => 1,
-    'virtual' => 1,
+    'virtual' => 0,
     'version' => '4.5.04',
     'date' => 'Friday, July 21, 2023 4:00:00 PM GMT+07:00',
     'author' => 'VINADES.,JSC <contact@vinades.vn>',

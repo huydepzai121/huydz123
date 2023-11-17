@@ -1,13 +1,16 @@
 <?php
 
 /**
- * @Project NUKEVIET 4.x
- * @Author VINADES.,JSC (contact@vinades.vn)
- * @copyright 2009
- * @License GNU/GPL version 2 or any later version
- * @Createdate 12/31/2009 2:29
+ * NukeViet Content Management System
+ * @version 4.x
+ * @author VINADES.,JSC <contact@vinades.vn>
+ * @copyright (C) 2009-2021 VINADES.,JSC. All rights reserved
+ * @license GNU/GPL version 2 or any later version
+ * @see https://github.com/nukeviet The NukeViet CMS GitHub project
  */
 
-if ( ! defined( 'NV_SYSTEM' ) ) die( 'Stop!!!' );
+if (!defined('NV_SYSTEM')) {
+    exit('Stop!!!');
+}
 
-define( 'NV_IS_MOD_REDDAY', true );
+define('NV_IS_MOD_WEATHER', true);

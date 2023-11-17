@@ -1,81 +1,96 @@
-<!-- BEGIN: main -->
-<div style="text-align:center;">
-    <!-- BEGIN: error -->
-    <div style="color:#f00;font-weight:bold;">{ERROR}</div>
-	<!-- END: error -->
-    <form class="form-inline" method="post" action="{ACTION}main">
-        <table class="table table-striped table-bordered table-hover">
-            <tbody>
-                <tr>
-                    <td>
-                    {LANG.rdselectday}: &nbsp;
-                        <select class="form-control" name="day">
-                            <!-- BEGIN: loop_day -->
-                            <option{DAY.sl} {DAY.value}>{DAY.value}</option>
-                            <!-- END: loop_day -->
-                        </select>
-                        {LANG.rdselectmonth}: &nbsp;
-                        <select class="form-control" name="month">
-                            <!-- BEGIN: loop_month -->
-                            <option{MONTH.sl} {MONTH.value}>{MONTH.value}</option>
-                            <!-- END: loop_month -->
-                        </select>
-                        <input class="btn btn-primary" type="submit" value="{LANG.rdsubmit}" name="submit1" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-</div>
-<!-- BEGIN: content -->
-<div class="text-center">
-<form class="form-inline" action="{ACTION}reddaysave" method="post">
-<div class="table-responsive">
-	<table class="table table-striped table-bordered table-hover">
-		<thead>
-	        <tr>
-	            <th colspan="2">
-	                <div >{LANG.rdeditday}</div>
-	            </th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	        <tr>
-	            <td>{LANG.rdholydays}:</td>
-	            <td><input class="form-control" type="text" style="width: 100%" value="{rdholydays}" name="a0" /></td>
-	        </tr>
-	        <tr>
-	            <td>{LANG.stateevents}:</td>
-	            <td>
-	                <!-- BEGIN: loop_stateevents --><textarea style="width: 100%" rows="5" name="a1[]">{stateevents}</textarea>
-	                <!-- END: loop_stateevents --><textarea style="width: 100%" rows="5" name="a1[]"></textarea>
-	            </td>
-	        </tr>
-	        <tr>
-	            <td>{LANG.interevents}:</td>
-	            <td>
-	                <!-- BEGIN: loop_interevents --><textarea style="width: 100%" rows="5" name="a2[]">{interevents}</textarea>
-	                <!-- END: loop_interevents --><textarea style="width: 100%" rows="5" name="a2[]"></textarea>
-	            </td>
-	        </tr>     
-	        <tr>
-	        <td>{LANG.otherevents}:</td>
-	        <td><textarea style="width: 100%" rows="5" cols="20" name="a3">{otherevents}</textarea></td>
-	        </tr>
-	        <tr>
-	            <td>&nbsp;</td>
-	            <td align="left">
-	                <input type="hidden" value="{day}" name="day" />
-	                <input type="hidden" value="{month}" name="month" />
-	                <input class="btn btn-primary" type="submit" value="&nbsp;Save&nbsp;" name="Submit1" />&nbsp;
-	                <input type="reset" value="&nbsp;Reset&nbsp;" name="Reset1" />
-	            </td>
-	        </tr>
-	    </tbody>
-	</table>
-</div>
-</form>
-</div>
-<!-- END: content -->
 
+<!-- BEGIN: main -->
+<form action="{FORM_ACTION}" method="post" class="form-group" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{WEATHER.id}">
+    <div class="row">
+        <div class="col-24 col-md-24">
+            <label>Tên thành phố:</label>
+            <select name="id_city" id="id_city" class="form-control">
+                <!-- BEGIN: city_loop -->
+                <option value="{CITY_ID}" {SELECTED_CITY}>{CITY_NAME}</option>
+                <!-- END: city_loop -->
+            </select>
+        </div>
+        <div class="col-6 col-md-6">
+            <div class="form-group">
+                <label>Ngày dự báo:</label>
+                <input type="date" class="form-control datepicker" name="date_forecast" autocomplete="off" value="{WEATHER.date_forecast}" />
+            </div>
+        </div>
+        <div class="col-10 col-md-10">
+            <div class="form-group">
+                <label for="wind_speed">Tốc độ gió:</label>
+                <span><input type="number" name="wind_speed" class="form-control" value="{WEATHER.wind_speed}" required>km/h</span>
+            </div>
+        </div>
+        <div class="col-24 col-md-24">
+            <div class="form-group">
+                <label for="low_temperature">Nhiệt độ thấp</label>
+                <span><input type="number" name="low_temperature" class="form-control" value="{WEATHER.low_temperature}" required> °C</span>
+            </div>
+        </div>
+        <div class="col-10 col-md-10">
+            <div class="form-group">
+                <label for="temperature_value">Nhiệt độ cao:</label>
+                <span><input type="number" name="high_temperature" class="form-control" value="{WEATHER.high_temperature}" required> °C</span>
+            </div>
+        </div>
+        <div class="col-10 col-md-10">
+            <div class="form-group">
+                <label for="rain">Lượng mưa</label>
+                <span><input type="number" name="rain" class="form-control" value="{WEATHER.rain}" required> /mm</span>
+            </div>
+        </div>
+        <div class="col-24 col-md-24">
+            <label>Ảnh đại diện từ máy tính:</label>
+            <input type="file" class="form-control-file" name="avatar" accept="image/*" />
+            <!-- BEGIN: has_avatar -->
+            <div class="col-24 col-md-24">
+                <img src="{AVATAR}" alt="Ảnh đại diện" id="avatar-preview" style="max-width: 100px; max-height: 100px;">
+            </div>
+            <!-- END: has_avatar -->
+        </div>
+        <div class="col-24 col-md-24">
+            <div class="form-group">
+                <label for="description">Mô tả:</label>
+
+                <textarea name="description" id="description">{WEATHER.description}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" name="submit" id="submit" value="1" class="btn btn-primary mt-5">Lưu</button>
+</form>
+<script type="text/javascript" src="{NV_BASE_SITEURL}assets/editors/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    CKEDITOR.replace('description');
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            autoclose: true
+        });
+    });
+</script>
+<script>   document.addEventListener('DOMContentLoaded', function() {
+        let type = "{ALERT_TYPE}";
+        let message = "{ALERT_MESSAGE}";
+        let redirectUrl = "{REDIRECT_URL}";
+
+        if (message && type) {
+            Swal.fire({
+                icon: type,
+                title: message,
+                showConfirmButton: true
+            }).then((result) => {
+                if (result.isConfirmed && type === "success" && redirectUrl) {
+                    window.location.href = redirectUrl;
+                }
+            });
+        }
+    });
+
+</script>
 <!-- END: main -->

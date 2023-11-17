@@ -15,6 +15,7 @@
 </div>
 
 <!-- IF !IS_SUBMIT -->
+<div class="scroll-table">
 <div class="weather-table-container">
     <table class="weather-table table-striped">
         <!-- BEGIN: table_loop -->
@@ -31,6 +32,7 @@
         </tr>
         <!-- END: table_loop -->
     </table>
+</div>
 </div>
 <!-- ELSE -->
 <div class="weather-forecast-container">
@@ -160,7 +162,10 @@
     .weather-desc {
         font-style: italic;
     }
-
+    .scroll-table{
+        overflow-y: scroll;
+        max-height: 1024px;
+    }
 </style>
 <script>
     document.getElementById("weather-form").addEventListener("submit", function(event) {

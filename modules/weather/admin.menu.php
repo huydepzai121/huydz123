@@ -13,7 +13,7 @@ if (!defined('NV_ADMIN')) {
     exit('Stop!!!');
 }
 
-//$submenu['content'] = $lang_module['add'];
+
 $submenu['main']=$lang_module['main'];
 $submenu['list']=$lang_module['list'];
 if (defined('NV_IS_SPADMIN')) {

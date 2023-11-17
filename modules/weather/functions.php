@@ -14,4 +14,3 @@ if (!defined('NV_SYSTEM')) {
 }
 
 define('NV_IS_MOD_WEATHER', true);
-define('NV_IS_MOD_LOCATION', true);
