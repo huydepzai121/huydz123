@@ -1,0 +1,14 @@
+[Thu, 23 Nov 2023 21:34:59 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 73]
+[Thu, 23 Nov 2023 21:34:59 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 74]
+[Thu, 23 Nov 2023 22:26:35 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 84]
+[Thu, 23 Nov 2023 22:26:35 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 85]
+[Thu, 23 Nov 2023 22:51:08 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 96]
+[Thu, 23 Nov 2023 22:51:08 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 97]
+[Thu, 23 Nov 2023 22:51:45 +0700] [localhost] [::1] [Error(1): Uncaught Error: Call to undefined function readCache() in D:\xampp\htdocs\huydz\modules\dictionary\admin\search.php:11
+Stack trace:
+#0 D:\xampp\htdocs\huydz\admin\index.php(182): require()
+#1 {main}
+  thrown] [FILE: /modules/dictionary/admin/search.php] [LINE: 11]
+[Thu, 23 Nov 2023 23:10:05 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 81]
+[Thu, 23 Nov 2023 23:10:05 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 82]
+[Thu, 23 Nov 2023 23:57:04 +0700] [localhost] [::1] [Warning(2): Undefined array key "translation"] [FILE: /modules/dictionary/admin/main.php] [LINE: 35]

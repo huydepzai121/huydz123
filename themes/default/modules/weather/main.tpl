@@ -4,7 +4,7 @@
     <form method="post" action="" id="weather-form" class="weather-form">
         <div class="form-group">
             <input type="hidden" name="id" value="{WEATHER.id}">
-            <select class="form-control" name="id_city" id="id_city">
+            <select class="form-control" name="id_city" id="id_city" onchange="changeCity()">
                 <!-- BEGIN: city_loop -->
                 <option value="{CITY.name}" {CITY.selected}>{CITY.name}</option>
                 <!-- END: city_loop -->
@@ -167,25 +167,6 @@
         max-height: 1024px;
     }
 </style>
-<script>
-    document.getElementById("weather-form").addEventListener("submit", function(event) {
-        // Ngăn chặn việc submit form mặc định
-        event.preventDefault();
 
-        // Kiểm tra xem form đã được submit hay chưa
-        var isSubmit = /* Thực hiện kiểm tra ở đây */;
 
-        if (isSubmit) {
-            // Nếu form đã được submit, ẩn bảng bằng cách đặt display thành none
-            document.getElementById("weather-table").style.display = "none";
-
-            // Đặt chiều cao của scrollable area thành auto sau khi submit
-            document.querySelector(".scroll-table").style.height = "auto";
-        }
-    });
-
-    // JavaScript để đặt chiều cao của scrollable area
-    var scrollTable = document.querySelector(".scroll-table");
-    scrollTable.style.height = "500px"; // Đặt chiều cao mặc định
-</script>
 <!-- END: main -->

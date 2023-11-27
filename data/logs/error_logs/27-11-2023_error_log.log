@@ -1,0 +1,12 @@
+[Mon, 27 Nov 2023 14:13:27 +0700] [localhost] [::1] [Error(1): Uncaught ArgumentCountError: Too few arguments to function nv_theme_dictionary_main(), 1 passed in D:\xampp\htdocs\huydz\modules\dictionary\funcs\main.php on line 32 and exactly 2 expected in D:\xampp\htdocs\huydz\modules\dictionary\theme.php:12
+Stack trace:
+#0 D:\xampp\htdocs\huydz\modules\dictionary\funcs\main.php(32): nv_theme_dictionary_main(Array)
+#1 D:\xampp\htdocs\huydz\index.php(369): require('D:\\xampp\\htdocs...')
+#2 {main}
+  thrown] [FILE: /modules/dictionary/theme.php] [LINE: 12]
+[Mon, 27 Nov 2023 14:19:28 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 81]
+[Mon, 27 Nov 2023 14:19:28 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 82]
+[Mon, 27 Nov 2023 14:28:10 +0700] [localhost] [::1] [Warning(2): Undefined variable $module_name] [FILE: /modules/dictionary/theme.php] [LINE: 19]
+[Mon, 27 Nov 2023 14:36:54 +0700] [localhost] [::1] [Warning(2): Undefined variable $module_name] [FILE: /modules/dictionary/theme.php] [LINE: 22]
+[Mon, 27 Nov 2023 14:42:16 +0700] [localhost] [::1] [Warning(2): foreach() argument must be of type array|object, null given] [FILE: /modules/dictionary/theme.php] [LINE: 26]
+[Mon, 27 Nov 2023 14:49:08 +0700] [localhost] [::1] [Warning(2): imagecreatefrompng(): gd-png: libpng warning: iCCP: known incorrect sRGB profile] [FILE: /includes/core/statimg.php] [LINE: 27]

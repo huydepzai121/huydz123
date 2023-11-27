@@ -12,11 +12,11 @@ if ($all_page) {
     while (list($id, $tilterow, $alias, $content) = $result->fetch(3)) {
         $url = $link . $alias . '-' . $id;
 
-        $result_array[] = array(
+        $result_array[] = [
             'link' => $url,
             'title' => BoldKeywordInStr($tilterow, $key, $logic),
             'content' => BoldKeywordInStr($content, $key, $logic)
-        );
+        ];
     }
 }
 */

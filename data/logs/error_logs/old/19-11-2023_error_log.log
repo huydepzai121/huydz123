@@ -1,0 +1,10 @@
+[Sun, 19 Nov 2023 21:52:30 +0700] [localhost] [::1] [Warning(2): Undefined array key "list_teacher"] [FILE: /modules/weather/admin/list.php] [LINE: 114]
+[Sun, 19 Nov 2023 22:35:12 +0700] [localhost] [::1] [Warning(2): exif_read_data(2_1.png): File not supported] [FILE: /vendor/vinades/nukeviet/Files/Upload.php] [LINE: 1076]
+[Sun, 19 Nov 2023 22:36:12 +0700] [localhost] [::1] [Error(1): Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'huydz1.nv4_vi_weather_time_period' doesn't exist in D:\xampp\htdocs\huydz\vendor\vinades\nukeviet\Core\Database.php:544
+Stack trace:
+#0 D:\xampp\htdocs\huydz\vendor\vinades\nukeviet\Core\Database.php(544): PDO->query('SELECT * FROM n...', NULL)
+#1 D:\xampp\htdocs\huydz\modules\weather\admin\main.php(40): NukeViet\Core\Database->query('SELECT * FROM n...')
+#2 D:\xampp\htdocs\huydz\admin\index.php(182): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown] [FILE: /vendor/vinades/nukeviet/Core/Database.php] [LINE: 544]
+[Sun, 19 Nov 2023 22:38:03 +0700] [localhost] [::1] [Warning(2): Undefined array key "list_teacher"] [FILE: /modules/weather/admin/list.php] [LINE: 115]

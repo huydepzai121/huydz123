@@ -8,8 +8,9 @@
  * @Createdate Sat, 19 Mar 2011 16:50:45 GMT
  */
 
-if (!defined('NV_IS_MOD_NVTOOLS'))
+if (!defined('NV_IS_MOD_NVTOOLS')) {
     die('Stop!!!');
+}
 
 define('NV_ADMIN', true);
 
@@ -51,7 +52,7 @@ if ($nv_Request->isset_request('submit', 'post,get')) {
                 $name = '_' . $name;
             }
             $sql_drop .= "_\" . \$module_data . \"" . $name . "\";\n";
-            $resulttab = $db->query('SHOW  CREATE TABLE ' . $tablename);
+            $resulttab = $db->query('SHOW CREATE TABLE ' . $tablename);
             while ($row = $resulttab->fetch()) {
                 preg_match("/^(CREATE TABLE `?[^` ]+`? .*?\()([^\;]+)\)([^\)]*)\;?$/im", $row['create table'], $matches);
                 $matches[2] = str_replace('`', '', $matches[2]);
@@ -59,6 +60,7 @@ if ($nv_Request->isset_request('submit', 'post,get')) {
                 if ($setlang) {
                     $temp .= "_\" . \$lang . \"";
                 }
+                $matches[2] = preg_replace('/[\s]+COLLATE[\s]+([a-zA-Z0-9\_]+)(\s|\,)/u', '\\2', $matches[2]);
                 $temp .= "_\" . \$module_data . \"" . $name . "(\n" . $matches[2] . "\n) ENGINE=MyISAM\";";
                 $sql_create .= preg_replace("/(\r\n)+|(\n|\r)+/", "\r\n", $temp) . "\n";
             }
@@ -77,7 +79,7 @@ if ($nv_Request->isset_request('submit', 'post,get')) {
         foreach ($export_structure as $key => $tablename) {
             $setlang = preg_match("/" . $db_config['prefix'] . "\_([a-z]{2}+)\_/", $tablename) ? 1 : 0;
             $is_data_write = (!$data_auto_config or !preg_match("/\_config$/i", $tablename));
-            
+
             $name = '';
             $match;
             if ($setlang and preg_match("/" . $db_config['prefix'] . "\_([a-z]{2}+)\_" . $moddata . "\_([a-z0-9\_]*)/", $tablename, $match)) {
@@ -88,7 +90,7 @@ if ($nv_Request->isset_request('submit', 'post,get')) {
             if (!empty($name)) {
                 $name = '_' . $name;
             }
-            $array_column = array();
+            $array_column = [];
             $_sql = ' SHOW COLUMNS FROM ' . $tablename;
             $_query = $db->query($_sql);
             while ($row = $_query->fetch()) {
@@ -134,7 +136,7 @@ if ($nv_Request->isset_request('submit', 'post,get')) {
         $content_action .= $sql_insert;
         $content_data .= $sql_data;
     }
-    
+
     // Cấu hình của module phải đưa vào action mới đảm bảo không lỗi
     if ($data_config == 1) {
         $sql_config = '';
@@ -147,15 +149,15 @@ if ($nv_Request->isset_request('submit', 'post,get')) {
         }
         $content_action .= $sql_config;
     }
-    
+
     if (!empty($content_action) or !empty($content_data)) {
         $content_actionB = "<?php\n\n";
         $content_actionB .= AUTHOR_FILEHEAD . "\n\n";
-        $content_actionB .= "if (!defined('NV_IS_FILE_MODULES'))\n";
-        $content_actionB .= "    die('Stop!!!');\n\n";
-        $content_actionB .= "\$sql_drop_module = array();\n";
+        $content_actionB .= "if (!defined('NV_IS_FILE_MODULES')) {\n";
+        $content_actionB .= "    die('Stop!!!');\n}\n\n";
+        $content_actionB .= "\$sql_drop_module = [];\n";
         $content_action = $content_actionB . $content_action;
-        
+
         if (!empty($content_data)) {
             $content_dataB = "<?php\n\n";
             $content_dataB .= AUTHOR_FILEHEAD . "\n\n";
@@ -163,10 +165,10 @@ if ($nv_Request->isset_request('submit', 'post,get')) {
             $content_dataB .= "    die('Stop!!!');\n\n";
             $content_data = $content_dataB . $content_data;
         }
-        
+
         if ($folder == 2) {
             file_put_contents(NV_ROOTDIR . '/modules/' . $modname . '/action_mysql.php', trim($content_action) . "\n");
-            
+
             if (!empty($content_data)) {
                 file_put_contents(NV_ROOTDIR . '/modules/' . $modname . '/language/data_' . NV_LANG_DATA . '.php', trim($content_data) . "\n");
             }
@@ -176,7 +178,7 @@ if ($nv_Request->isset_request('submit', 'post,get')) {
             }
             nv_mkdir(NV_ROOTDIR . '/' . NV_TEMP_DIR, $modname);
             file_put_contents(NV_ROOTDIR . '/' . NV_TEMP_DIR . '/' . $modname . '/action_mysql.php', trim($content_action) . "\n");
-            
+
             if (!empty($content_data)) {
                 nv_mkdir(NV_ROOTDIR . '/' . NV_TEMP_DIR . '/' . $modname, 'language');
                 file_put_contents(NV_ROOTDIR . '/' . NV_TEMP_DIR . '/' . $modname . '/language/data_' . NV_LANG_DATA . '.php', trim($content_data) . "\n");
@@ -206,13 +208,13 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname)) {
     $data_auto_config = $nv_Request->get_int('data_auto_config', 'post,get', 0);
     $folder = $nv_Request->get_int('folder', 'post,get', 1);
 
-    $array_structure = array();
+    $array_structure = [];
     if (!empty($export_structure)) {
         foreach ($export_structure as $value) {
             $array_structure[$value] = $value;
         }
     }
-    $array_data = array();
+    $array_data = [];
     if (!empty($export_data)) {
         foreach ($export_data as $value) {
             $array_data[$value] = $value;
@@ -237,29 +239,33 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname)) {
         $xtpl->assign('ITEM', $item);
         $xtpl->parse('main.form.item');
     }
-    
+
     $checkedconfig = ($data_config == 1) ? 'checked=\"checked\"' : '';
     $xtpl->assign('CHECKEDCONFIG', $checkedconfig);
-    
+
     $checkedautoconfig = ($data_auto_config == 1) ? 'checked=\"checked\"' : '';
     $xtpl->assign('CHECKEDAUTOCONFIG', $checkedautoconfig);
 
-    $array_folder = array();
+    $array_folder = [];
     $array_folder[1] = 'Thư mục tmp';
     $array_folder[2] = 'Thư mục của module';
 
     foreach ($array_folder as $key => $title) {
-        $xtpl->assign('OPTION', array(
+        $xtpl->assign('OPTION', [
             'key' => $key,
             'title' => $title,
-            'checked' => ($key == $folder) ? ' checked="checked"' : ''));
+            'checked' => ($key == $folder) ? ' checked="checked"' : ''
+        ]);
         $xtpl->parse('main.form.folder');
     }
     $xtpl->parse('main.form');
 } else {
     $modules_exit = nv_scandir(NV_ROOTDIR . '/modules', $global_config['check_module']);
     foreach ($modules_exit as $mod_i) {
-        $xtpl->assign('MODNAME', array('value' => $mod_i, 'selected' => ($modname == $mod_i) ? ' selected="selected"' : ''));
+        $xtpl->assign('MODNAME', [
+            'value' => $mod_i,
+            'selected' => ($modname == $mod_i) ? ' selected="selected"' : ''
+        ]);
         $xtpl->parse('main.tablename.modname');
     }
     $xtpl->parse('main.tablename');

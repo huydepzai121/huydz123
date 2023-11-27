@@ -8,8 +8,9 @@
  * @Createdate Sat, 19 Mar 2011 16:50:45 GMT
  */
 
-if (!defined('NV_IS_MOD_NVTOOLS'))
+if (!defined('NV_IS_MOD_NVTOOLS')) {
     die('Stop!!!');
+}
 
 define('NV_ADMIN', true);
 
@@ -25,7 +26,7 @@ function nv_get_lang_mod_admin($mod, $lang, $setfunction)
 {
     global $global_config;
 
-    $lang_module = array();
+    $lang_module = [];
     if ($setfunction == 1) {
         $file_name = '';
     } else {
@@ -125,10 +126,11 @@ if ($nv_Request->isset_request('loadmodname', 'get')) {
 }
 
 if ($nv_Request->isset_request('choicesql', 'post')) {
-    if (!defined('NV_IS_AJAX'))
+    if (!defined('NV_IS_AJAX')) {
         die('Wrong URL');
+    }
 
-    $array_choicesql = array('module' => 'table', 'table' => 'column');
+    $array_choicesql = ['module' => 'table', 'table' => 'column'];
     $choice = $nv_Request->get_string('choice', 'post', '');
     $choice_seltected = $nv_Request->get_string('choice_seltected', 'post', '');
     $column = $nv_Request->get_string('column', 'post', '');
@@ -157,7 +159,7 @@ if ($nv_Request->isset_request('choicesql', 'post')) {
         $_items = $db->query("SHOW TABLE STATUS LIKE '%\_" . $module . "%'")->fetchAll();
         $num_table = sizeof($_items);
 
-        $array_table_module = array();
+        $array_table_module = [];
         $xtpl->assign('choicesql_name', 'choicesql_' . $choice);
         $xtpl->assign('choicesql_next', $array_choicesql[$choice]);
 
@@ -182,7 +184,7 @@ if ($nv_Request->isset_request('choicesql', 'post')) {
         $_items = $db->columns_array($table);
         $num_table = sizeof($_items);
 
-        $array_table_module = array();
+        $array_table_module = [];
         $xtpl->assign('choicesql_name', 'choicesql_' . $choice);
         $xtpl->assign('choicesql_next', $array_choicesql[$choice]);
         if ($num_table > 0) {
@@ -216,7 +218,10 @@ $funname = $nv_Request->get_title('funname', 'get,post');
 $setlangvi = $nv_Request->get_int('setlangvi', 'get', 0);
 $setlangen = $nv_Request->get_int('setlangen', 'get', 0);
 
-$array_choice_type = array('field_choicetypes_sql' => $lang_module['field_choicetypes_sql'], 'field_choicetypes_text' => $lang_module['field_choicetypes_text']);
+$array_choice_type = [
+    'field_choicetypes_sql' => $lang_module['field_choicetypes_sql'],
+    'field_choicetypes_text' => $lang_module['field_choicetypes_text']
+];
 
 $xtpl = new XTemplate($op . ".tpl", NV_ROOTDIR . "/themes/" . $module_info['template'] . "/modules/" . $module_file);
 $xtpl->assign('LANG', $lang_module);
@@ -282,8 +287,8 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
     $content_default = '';
     try {
         $primary = '';
-        $array_columns = array();
-        $array_field_js = array();
+        $array_columns = [];
+        $array_field_js = [];
 
         $list_no_us = 'add, all, alter, analyze, and, as, asc, before, between, bigint, binary, both, by, call, cascade, case, change, char, character, check, collate, column, comment, condition, constraint, continue, convert, create, cross, current_user, cursor, database, databases, date, day_hour, day_minute, day_second, dec, decimal, declare, default, delayed, delete, desc, describe, distinct, distinctrow, drop, dual, else, elseif, enclosed, escaped, exists, exit, explain, false, fetch, file, float4, float8, for, force, foreign, from, fulltext, get, grant, group, having, high_priority, hour_minute, hour_second, identified, if, ignore, ignore_server_ids, in, index, infile, inner, insert, int1, int2, int3, int4, int8, integer, interval, into, is, iterate, join, key, keys, kill, leading, leave, left, level, like, limit, lines, load, lock, long, loop, low_priority, master_bind, master_heartbeat_period, master_ssl_verify_server_cert, match, middleint, minute_second, mod, mode, modify, natural, no_write_to_binlog, not, null, number, numeric, on, optimize, option, optionally, or, order, outer, outfile, partition, precision, primary, privileges, procedure, public, purge, read, real, references, release, rename, repeat, replace, require, resignal, restrict, return, revoke, right, rlike, rows, schema, schemas, select, separator, session, set, share, show, signal, spatial, sql_after_gtids, sql_before_gtids, sql_big_result, sql_calc_found_rows, sql_small_result, sqlstate, ssl, start, starting, straight_join, table, terminated, then, to, trailing, trigger, true, undo, union, unique, unlock, unsigned, update, usage, use, user, using, values, varcharacter, varying, view, when, where, while, with, write, year_month, zerofill';
         $array_no_us = explode(',', $list_no_us);
@@ -330,18 +335,22 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
 
             if (strpos($column['data_type'], 'text') !== false) {
                 $field_type = (strpos($column['data_type'], 'mediumtext') !== false or strpos($column['data_type'], 'longtext') !== false) ? 'editor' : 'textarea';
-                $array_field_type_i = array('textarea' => $lang_module['field_type_textarea'], 'editor' => $lang_module['field_type_editor']);
+                $array_field_type_i = [
+                    'textarea' => $lang_module['field_type_textarea'],
+                    'editor' => $lang_module['field_type_editor']
+                ];
             } elseif (strpos($column['data_type'], 'int') !== false) {
                 $field_type = 'number';
-                $array_field_type_i = array(
+                $array_field_type_i = [
                     'number_int' => $lang_module['field_type_int'],
                     'number_float' => $lang_module['field_type_float'],
                     'date' => $lang_module['field_type_date'],
                     'time' => $lang_module['field_type_time'],
                     'textbox' => $lang_module['field_type_textbox'],
                     'select' => $lang_module['field_type_select'],
-                    'radio' => $lang_module['field_type_radio']) // 'checkbox' => $lang_module['field_type_checkbox']
-                    ;
+                    'radio' => $lang_module['field_type_radio']
+                    // 'checkbox' => $lang_module['field_type_checkbox']
+                ];
                 if (strpos($column['data_type'], 'int') !== 0) {
                     unset($array_field_type_i['date']);
                     unset($array_field_type_i['time']);
@@ -352,7 +361,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                 } else {
                     $field_type = 'textbox';
                 }
-                $array_field_type_i = array(
+                $array_field_type_i = [
                     'email' => $lang_module['field_type_email'],
                     'url' => $lang_module['field_type_url'],
                     'textbox' => $lang_module['field_type_textbox'],
@@ -361,7 +370,8 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                     'password' => $lang_module['field_type_password'],
                     'select' => $lang_module['field_type_select'],
                     'radio' => $lang_module['field_type_radio'],
-                    'checkbox' => $lang_module['field_type_checkbox']);
+                    'checkbox' => $lang_module['field_type_checkbox']
+                ];
                 if (strpos($column['column_name'], 'groups_') !== false) {
                     $field_type = 'checkbox_groups';
                     $array_field_type_i['checkbox_groups'] = $lang_module['field_type_checkbox_groups'];
@@ -373,50 +383,54 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
             }
 
             foreach ($array_field_type_i as $key => $value) {
-                $xtpl->assign('FIELD_TYPE', array(
+                $xtpl->assign('FIELD_TYPE', [
                     'key' => $key,
                     'value' => $value,
-                    'selected' => ($field_type == $key) ? ' selected="selected"' : ''));
+                    'selected' => ($field_type == $key) ? ' selected="selected"' : ''
+                ]);
                 $xtpl->parse('main.form.column.field_type');
             }
             $xtpl->assign('COLUMN', $column);
             foreach ($array_choice_type as $key => $value) {
-                $xtpl->assign('CHOICE_TYPES', array('key' => $key, 'value' => $value) // 'selected' => ($dataform['match_type'] == $key) ? ' selected="selected"' : ''
-                    );
+                $xtpl->assign('CHOICE_TYPES', ['key' => $key, 'value' => $value]);
                 $xtpl->parse('main.form.column.choicetypes_add.choicetypes');
             }
             $xtpl->parse('main.form.column.choicetypes_add');
 
             $number = 1;
-            $xtpl->assign('FIELD_CHOICES', array(
+            $xtpl->assign('FIELD_CHOICES', [
                 'number' => $number,
                 'key' => '',
-                'value' => ''));
+                'value' => ''
+            ]);
             $xtpl->parse('main.form.column.loop_field_choice');
             $xtpl->assign('FIELD_CHOICES_NUMBER', $number);
 
             $xtpl->parse('main.form.column');
 
             if (strpos($column['data_type'], 'int') !== false and $column['column_name'] != $primary) {
-                $xtpl->assign('FIELD_TYPE', array(
+                $xtpl->assign('FIELD_TYPE', [
                     'key' => $column['column_name'],
                     'value' => $column['column_name'],
-                    'selected' => ($column['column_name'] == $active_page) ? ' selected="selected"' : ''));
+                    'selected' => ($column['column_name'] == $active_page) ? ' selected="selected"' : ''
+                ]);
                 $xtpl->parse('main.form.active_page');
             }
 
             if (strpos($column['data_type'], 'int') !== false and $column['column_name'] != $primary) {
-                $xtpl->assign('FIELD_TYPE', array(
+                $xtpl->assign('FIELD_TYPE', [
                     'key' => $column['column_name'],
                     'value' => $column['column_name'],
-                    'selected' => ($column['column_name'] == $weight_page) ? ' selected="selected"' : ''));
+                    'selected' => ($column['column_name'] == $weight_page) ? ' selected="selected"' : ''
+                ]);
                 $xtpl->parse('main.form.weight_page');
             }
             if (strpos($column['data_type'], 'varchar') !== false and $column['column_name'] != $primary) {
-                $xtpl->assign('FIELD_TYPE', array(
+                $xtpl->assign('FIELD_TYPE', [
                     'key' => $column['column_name'],
                     'value' => $column['column_name'],
-                    'selected' => ($column['column_name'] == $alias_title) ? ' selected="selected"' : ''));
+                    'selected' => ($column['column_name'] == $alias_title) ? ' selected="selected"' : ''
+                ]);
                 $xtpl->parse('main.form.alias_title');
             }
         }
@@ -425,17 +439,17 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
             $error[] = $lang_module['addfun_err_prikey'];
         }
 
-        $array_type_addfun = array(
+        $array_type_addfun = [
             0 => 'Cả form và list',
             1 => 'List',
             2 => 'Form'
-        );
+        ];
         foreach ($array_type_addfun as $key => $value) {
-            $xtpl->assign('TYPE_ADDFUN', array(
+            $xtpl->assign('TYPE_ADDFUN', [
                 'key' => $key,
                 'value' => $value,
                 'selected' => ($key == $type_addfun) ? ' selected="selected"' : ''
-            ));
+            ]);
             $xtpl->parse('main.form.type_addfun');
         }
 
@@ -451,11 +465,11 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
 
         if (!empty($array_views)) {
             // wite file php
-            $_tmp_key_insert = array();
-            $_tmp_key_update = array();
-            $_tmp_key_editor = array();
-            $_tmp_key_textarea = array();
-            $_tmp_key_file = array();
+            $_tmp_key_insert = [];
+            $_tmp_key_update = [];
+            $_tmp_key_editor = [];
+            $_tmp_key_textarea = [];
+            $_tmp_key_file = [];
             $txt_bindParam = '';
             $txt_bindParam_default = '';
             $txt_post = '';
@@ -464,8 +478,8 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
             $lang_mod_admin_vi = nv_get_lang_mod_admin($modname, 'vi', $setfunction);
             $lang_mod_admin_en = nv_get_lang_mod_admin($modname, 'en', $setfunction);
 
-            $lang_mod_admin_vi_new = array();
-            $lang_mod_admin_en_new = array();
+            $lang_mod_admin_vi_new = [];
+            $lang_mod_admin_en_new = [];
 
             if (!isset($lang_mod_admin_vi[$funname]) and !isset($lang_mod_admin_vi_new[$funname])) {
                 $lang_mod_admin_vi_new[$funname] = $funname;
@@ -537,7 +551,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                 }
             }
 
-            $array_check_error = array();
+            $array_check_error = [];
             // Kiểm tra các biến bắt buộc phải nhập
             foreach ($array_requireds as $key => $value) {
                 $array_check_error[] = "if (empty(\$row['" . $key . "'])) {\n\t\t\$error[] = \$lang_module['error_required_" . $key . "'];\n\t}";
@@ -557,10 +571,10 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
             $content .= NV_FILEHEAD . "\n\n";
             if ($setfunction == 1) {
                 $modname_up = strtoupper($modname);
-                $content .= "if (!defined('NV_IS_MOD_" . $modname_up . "'))\n\tdie('Stop!!!');\n\n";
+                $content .= "if (!defined('NV_IS_MOD_" . $modname_up . "')) {\n\tdie('Stop!!!');\n}\n\n";
                 $nv_url = "NV_BASE_SITEURL";
             } else {
-                $content .= "if (!defined('NV_IS_FILE_ADMIN'))\n\tdie('Stop!!!');\n\n";
+                $content .= "if (!defined('NV_IS_FILE_ADMIN')) {\n\tdie('Stop!!!');\n}\n\n";
                 $nv_url = "NV_BASE_ADMINURL";
             }
 
@@ -568,7 +582,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                 $content .= "if (\$nv_Request->isset_request('get_alias_title', 'post')) {\n";
                 $content .= "\t\$alias = \$nv_Request->get_title('get_alias_title', 'post', '');\n";
                 $content .= "\t\$alias = change_alias(\$alias);\n";
-                $content .= "\tdie(\$alias);\n";
+                $content .= "\tnv_htmlOutput(\$alias);\n";
                 $content .= "}\n\n";
             }
 
@@ -599,8 +613,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                     $content .= "\t\$content = 'NO_' . \$" . $primary . ";\n\n";
                     $content .= "\t\$query = 'SELECT " . $active_page . " FROM " . $tablename_save . " WHERE " . $primary . "=' . \$" . $primary . ";\n";
                     $content .= "\t\$row = \$db->query(\$query)->fetch();\n";
-                    $content .= "\tif (isset(\$row['" . $active_page . "'])) ";
-                    $content .= "\t{\n";
+                    $content .= "\tif (isset(\$row['" . $active_page . "'])) {\n";
                     $content .= "\t\t\$" . $active_page . " = (\$row['" . $active_page . "']) ? 0 : 1;\n";
                     $content .= "\t\t\$query = 'UPDATE " . $tablename_save . " SET " . $active_page . "=' . intval(\$" . $active_page . ") . ' WHERE " . $primary . "=' . \$" . $primary . ";\n";
                     $content .= "\t\t\$db->query(\$query);\n";
@@ -620,15 +633,15 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                     $content .= "\t\$" . $primary . " = \$nv_Request->get_int('" . $primary . "', 'post', 0);\n";
                     $content .= "\t\$new_vid = \$nv_Request->get_int('new_vid', 'post', 0);\n";
                     $content .= "\t\$content = 'NO_' . \$" . $primary . ";\n";
-                    $content .= "\tif (\$new_vid > 0) ";
-                    $content .= "\t{\n";
+                    $content .= "\tif (\$new_vid > 0) {\n";
                     $content .= "\t\t\$sql = 'SELECT " . $primary . " FROM " . $tablename_save . " WHERE " . $primary . "!=' . \$" . $primary . " . ' ORDER BY " . $weight_page . " ASC';\n";
                     $content .= "\t\t\$result = \$db->query(\$sql);\n";
                     $content .= "\t\t\$" . $weight_page . " = 0;\n";
-                    $content .= "\t\twhile (\$row = \$result->fetch())\n";
-                    $content .= "\t\t{\n";
+                    $content .= "\t\twhile (\$row = \$result->fetch()) {\n";
                     $content .= "\t\t\t++\$" . $weight_page . ";\n";
-                    $content .= "\t\t\tif (\$" . $weight_page . " == \$new_vid) ++\$" . $weight_page . "; ";
+                    $content .= "\t\t\tif (\$" . $weight_page . " == \$new_vid) {\n";
+                    $content .= "\t\t\t\t++\$" . $weight_page . ";\n";
+                    $content .= "\t\t\t}\n";
                     $content .= "\t\t\t\$sql = 'UPDATE " . $tablename_save . " SET " . $weight_page . "=' . \$" . $weight_page . " . ' WHERE " . $primary . "=' . \$row['" . $primary . "'];\n";
                     $content .= "\t\t\t\$db->query(\$sql);\n";
                     $content .= "\t\t}\n";
@@ -650,7 +663,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                 $content .= "\t\$delete_checkss = \$nv_Request->get_string('delete_checkss', 'get');\n";
                 $content .= "\tif (\$" . $primary . " > 0 and \$delete_checkss == md5(\$" . $primary . " . NV_CACHE_PREFIX . \$client_info['session_id'])) {\n";
                 if (!empty($weight_page)) {
-                    $content .= "\t\t\$" . $weight_page . "=0;\n";
+                    $content .= "\t\t\$" . $weight_page . " = 0;\n";
                     $content .= "\t\t\$sql = 'SELECT " . $weight_page . " FROM " . $tablename_save . " WHERE " . $primary . " =' . \$db->quote($" . $primary . ");\n";
                     $content .= "\t\t\$result = \$db->query(\$sql);\n";
                     $content .= "\t\tlist(\$" . $weight_page . ") = \$result->fetch(3);\n";
@@ -663,8 +676,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                     $content .= "\t\t{\n";
                     $content .= "\t\t\t\$sql = 'SELECT " . $primary . ", " . $weight_page . " FROM " . $tablename_save . " WHERE " . $weight_page . " >' . \$" . $weight_page . ";\n";
                     $content .= "\t\t\t\$result = \$db->query(\$sql);\n";
-                    $content .= "\t\t\twhile (list(\$" . $primary . ", \$" . $weight_page . ") = \$result->fetch(3))\n";
-                    $content .= "\t\t\t{\n";
+                    $content .= "\t\t\twhile (list(\$" . $primary . ", \$" . $weight_page . ") = \$result->fetch(3)) {\n";
                     $content .= "\t\t\t\t\$" . $weight_page . "--;\n";
                     $content .= "\t\t\t\t\$db->query('UPDATE " . $tablename_save . " SET " . $weight_page . "=' . \$" . $weight_page . " . ' WHERE " . $primary . "=' . intval(\$" . $primary . "));\n";
                     $content .= "\t\t\t}\n";
@@ -677,8 +689,8 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                 $content .= "}\n\n";
             }
 
-            $content .= "\$row = array();\n";
-            $content .= "\$error = array();\n";
+            $content .= "\$row = [];\n";
+            $content .= "\$error = [];\n";
             if ($type_addfun == 0 or $type_addfun == 2) {
                 if (!empty($primary)) {
                     $content .= "\$row['" . $primary . "'] = \$nv_Request->get_int('" . $primary . "', 'post,get', 0);\n";
@@ -741,7 +753,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                             }
                             $txt_bindParam .= "INT";
                         } elseif ($_view_type == 'checkbox_groups') {
-                            $txt_post .= "\n\t\$_groups_post = \$nv_Request->get_array('" . $key . "', 'post', array());\n";
+                            $txt_post .= "\n\t\$_groups_post = \$nv_Request->get_array('" . $key . "', 'post', []);\n";
                             $txt_post .= "\t\$row['" . $key . "'] = !empty(\$_groups_post) ? implode(',', nv_groups_post(array_intersect(\$_groups_post, array_keys(\$groups_list)))) : '';\n";
                             $txt_bindParam .= "STR";
                         } elseif ($_view_type == 'checkbox') {
@@ -910,7 +922,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                         }
                     } else {
                         // Trình soạn thảo trong admin
-                        $content .= "if (defined('NV_EDITOR'))\n\trequire_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';\n\n";
+                        $content .= "if (defined('NV_EDITOR')) {\n\trequire_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';\n}\n\n";
                         foreach ($_tmp_key_editor as $key) {
                             $content .= "\$row['" . $key . "'] = nv_htmlspecialchars(nv_editor_br2nl(\$row['" . $key . "']));\n";
                             $content .= "if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor')) {\n";
@@ -927,8 +939,15 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
             if (!empty($choicesql_module) && !empty($choicesql_table) && !empty($choicesql_column_key) && !empty($choicesql_column_val)) {
                 foreach ($choicesql_module as $key => $value) {
                     if (!empty($value)) {
-                        $content .= "\$array_" . $key . "_" . $value . " = array();\n";
-                        $content .= "\$_sql = 'SELECT " . $choicesql_column_key[$key] . "," . $choicesql_column_val[$key] . " FROM " . $choicesql_table[$key] . "';\n";
+                        if (preg_match('/^' . nv_preg_quote(NV_PREFIXLANG) . '\_' . nv_preg_quote($value) . '(.*)$/i', $choicesql_table[$key], $m)) {
+                            $table_sql = "' . NV_PREFIXLANG . '_" . $value . $m[1];
+                        } elseif (preg_match('/^' . nv_preg_quote($db_config['prefix']) . '\_' . nv_preg_quote($value) . '(.*)$/i', $choicesql_table[$key], $m)) {
+                            $table_sql = "' . \$db_config['prefix'] . '_" . $value . $m[1];
+                        } else {
+                            $table_sql = $choicesql_table[$key];
+                        }
+                        $content .= "\$array_" . $key . "_" . $value . " = [];\n";
+                        $content .= "\$_sql = 'SELECT " . $choicesql_column_key[$key] . ", " . $choicesql_column_val[$key] . " FROM " . $table_sql . "';\n";
                         $content .= "\$_query = \$db->query(\$_sql);\n";
                         $content .= "while (\$_row = \$_query->fetch()) {\n";
                         $content .= "\t\$array_" . $key . "_" . $value . "[\$_row['" . $choicesql_column_key[$key] . "']] = \$_row;\n";
@@ -941,7 +960,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
             if (!empty($field_choice) && !empty($field_choice_text)) {
                 foreach ($field_choice as $key_column => $values) {
                     if (!empty($field_choice[$key_column][1])) {
-                        $content .= "\n\$array_" . $key_column . " = array();\n";
+                        $content .= "\n\$array_" . $key_column . " = [];\n";
                     }
                     foreach ($values as $key => $value) {
                         if (!empty($value)) {
@@ -952,7 +971,7 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
             }
 
             if (($type_addfun == 0 or $type_addfun == 1) and !empty($array_listviews)) {
-                $search_column = array();
+                $search_column = [];
                 if ($search_page) {
                     $content .= "\n\$q = \$nv_Request->get_title('q', 'post,get');\n";
                     foreach ($array_listviews as $key => $_tmp) {
@@ -1048,37 +1067,37 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
             $content .= "\$xtpl->assign('OP', \$op);\n";
             $content .= "\$xtpl->assign('ROW', \$row);\n\n";
 
-            // xử lí dữ liệu select CSDL
+            // Xử lý dữ liệu select CSDL
             if ($type_addfun == 0 or $type_addfun == 2) {
                 if (!empty($choicesql_module) && !empty($choicesql_table) && !empty($choicesql_column_key) && !empty($choicesql_column_val)) {
                     foreach ($choicesql_module as $key => $value) {
                         if (!empty($value)) {
                             if ($array_views[$key] == 'select') {
                                 $content .= "foreach (\$array_" . $key . "_" . $value . " as \$value) {\n";
-                                $content .= "\t\$xtpl->assign('OPTION', array(\n";
+                                $content .= "\t\$xtpl->assign('OPTION', [\n";
                                 $content .= "\t\t'key' => \$value['" . $choicesql_column_key[$key] . "'],\n";
                                 $content .= "\t\t'title' => \$value['" . $choicesql_column_val[$key] . "'],\n";
                                 $content .= "\t\t'selected' => (\$value['" . $choicesql_column_key[$key] . "'] == \$row['" . $key . "']) ? ' selected=\"selected\"' : ''\n";
-                                $content .= "\t));\n";
+                                $content .= "\t]);\n";
                                 $content .= "\t\$xtpl->parse('main.select_" . $key . "');\n";
                                 $content .= "}\n";
                             } elseif ($array_views[$key] == 'radio' or $array_views[$key] == 'checkbox') {
                                 $content .= "foreach (\$array_" . $key . "_" . $value . " as \$key => \$value) {\n";
-                                $content .= "\t\$xtpl->assign('OPTION', array(\n";
+                                $content .= "\t\$xtpl->assign('OPTION', [\n";
                                 $content .= "\t\t'key' => \$value['" . $choicesql_column_key[$key] . "'],\n";
                                 $content .= "\t\t'title' => \$value['" . $choicesql_column_val[$key] . "'],\n";
                                 $content .= "\t\t'checked' => (\$value['" . $choicesql_column_key[$key] . "'] == \$row['" . $key . "']) ? ' checked=\"checked\"' : ''\n";
-                                $content .= "\t));\n";
+                                $content .= "\t]);\n";
                                 $content .= "\t\$xtpl->parse('main." . $array_views[$key] . "_" . $key . "');\n";
                                 $content .= "}\n";
                             } elseif ($array_views[$key] == 'checkbox_groups') {
                                 $content .= "\n\$" . $key . " = explode(',', \$row['" . $key . "']);\n";
                                 $content .= "foreach (\$groups_list as \$key => \$title) {\n";
-                                $content .= "\t\$xtpl->assign('OPTION', array(\n";
+                                $content .= "\t\$xtpl->assign('OPTION', [\n";
                                 $content .= "\t\t'key' => \$key,\n";
                                 $content .= "\t\t'title' => \$title,\n";
                                 $content .= "\t\t'checked' => in_array(\$key, \$" . $key . ") ? ' checked=\"checked\"' : ''\n";
-                                $content .= "\t));\n";
+                                $content .= "\t]);\n";
                                 $content .= "\t\$xtpl->parse('main." . $key . "');\n";
                                 $content .= "}\n";
                             }
@@ -1092,30 +1111,30 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                         if (!empty($field_choice[$key_column][1])) {
                             if ($array_views[$key_column] == 'select') {
                                 $content .= "\nforeach (\$array_" . $key_column . " as \$key => \$title) {\n";
-                                $content .= "\t\$xtpl->assign('OPTION', array(\n";
+                                $content .= "\t\$xtpl->assign('OPTION', [\n";
                                 $content .= "\t\t'key' => \$key,\n";
                                 $content .= "\t\t'title' => \$title,\n";
                                 $content .= "\t\t'selected' => (\$key == \$row['" . $key_column . "']) ? ' selected=\"selected\"' : ''\n";
-                                $content .= "\t));\n";
+                                $content .= "\t]);\n";
                                 $content .= "\t\$xtpl->parse('main." . $array_views[$key_column] . "_" . $key_column . "');\n";
                                 $content .= "}\n";
                             } elseif ($array_views[$key_column] == 'radio' or $array_views[$key_column] == 'checkbox') {
                                 $content .= "\nforeach (\$array_" . $key_column . " as \$key => \$title) {\n";
-                                $content .= "\t\$xtpl->assign('OPTION', array(\n";
+                                $content .= "\t\$xtpl->assign('OPTION', [\n";
                                 $content .= "\t\t'key' => \$key,\n";
                                 $content .= "\t\t'title' => \$title,\n";
                                 $content .= "\t\t'checked' => (\$key == \$row['" . $key_column . "']) ? ' checked=\"checked\"' : ''\n";
-                                $content .= "\t));\n";
+                                $content .= "\t]);\n";
                                 $content .= "\t\$xtpl->parse('main." . $array_views[$key_column] . "_" . $key_column . "');\n";
                                 $content .= "}\n";
                             } elseif ($array_views[$key_column] == 'checkbox_groups') {
                                 $content .= "\n\$" . $key_column . " = explode(',', \$row['" . $key_column . "']);\n";
                                 $content .= "foreach (\$groups_list as \$key => \$title) {\n";
-                                $content .= "\t\$xtpl->assign('OPTION', array(\n";
+                                $content .= "\t\$xtpl->assign('OPTION', [\n";
                                 $content .= "\t\t'key' => \$key,\n";
                                 $content .= "\t\t'title' => \$title,\n";
                                 $content .= "\t\t'checked' => in_array(\$key, \$" . $key_column . ") ? ' checked=\"checked\"' : ''\n";
-                                $content .= "\t));\n";
+                                $content .= "\t]);\n";
                                 $content .= "\t\$xtpl->parse('main." . $key_column . "');\n";
                                 $content .= "}\n";
                             }
@@ -1155,10 +1174,11 @@ if (preg_match('/^[a-zA-Z0-9\_\-]+$/', $modname) and preg_match('/^[a-zA-Z0-9\_\
                 } else {
                     $content .= "\t\tfor(\$i = 1; \$i <= \$num_items; ++\$i)";
                     $content .= " {\n";
-                    $content .= "\t\t\t\$xtpl->assign('WEIGHT', array(\n";
+                    $content .= "\t\t\t\$xtpl->assign('WEIGHT', [\n";
                     $content .= "\t\t\t\t'key' => \$i,\n";
                     $content .= "\t\t\t\t'title' => \$i,\n";
-                    $content .= "\t\t\t\t'selected' => (\$i == \$view['" . $weight_page . "']) ? ' selected=\"selected\"' : ''));\n";
+                    $content .= "\t\t\t\t'selected' => (\$i == \$view['" . $weight_page . "']) ? ' selected=\"selected\"' : ''\n";
+                    $content .= "\t\t\t]);\n";
                     $content .= "\t\t\t\$xtpl->parse('main.view.loop." . $weight_page . "_loop');\n";
                     $content .= "\t\t}\n";
                 }
@@ -1598,20 +1618,20 @@ if (empty($nb)) {
 
     $modules_exit = nv_scandir(NV_ROOTDIR . '/modules', $global_config['check_module']);
     foreach ($modules_exit as $mod_i) {
-        $xtpl->assign('MODNAME', array('value' => $mod_i, 'selected' => ($modname == $mod_i) ? ' selected="selected"' : ''));
+        $xtpl->assign('MODNAME', ['value' => $mod_i, 'selected' => ($modname == $mod_i) ? ' selected="selected"' : '']);
         $xtpl->parse('main.tablename.modname');
     }
 
     if (!empty($modname)) {
         $result = $db->query('SHOW TABLE STATUS LIKE ' . $db->quote($db_config['prefix'] . '\_' . NV_LANG_DATA . '\_' . $modname . '%'));
         while ($item = $result->fetch()) {
-            $xtpl->assign('MODNAME', array('value' => $item['name'], 'selected' => ($tablename == $item['name']) ? ' selected="selected"' : ''));
+            $xtpl->assign('MODNAME', ['value' => $item['name'], 'selected' => ($tablename == $item['name']) ? ' selected="selected"' : '']);
             $xtpl->parse('main.tablename.loop');
         }
 
         $result = $db->query('SHOW TABLE STATUS LIKE ' . $db->quote($db_config['prefix'] . '\_' . $modname . '%'));
         while ($item = $result->fetch()) {
-            $xtpl->assign('MODNAME', array('value' => $item['name'], 'selected' => ($tablename == $item['name']) ? ' selected="selected"' : ''));
+            $xtpl->assign('MODNAME', ['value' => $item['name'], 'selected' => ($tablename == $item['name']) ? ' selected="selected"' : '']);
             $xtpl->parse('main.tablename.loop');
         }
     }
@@ -1636,4 +1656,3 @@ $contents = $xtpl->text('main');
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);
 include NV_ROOTDIR . '/includes/footer.php';
-

@@ -1,5 +1,5 @@
-$channel = array();
-$items = array();
+$channel = [];
+$items = [];
 
 $channel['title'] = $module_info['custom_title'];
 $channel['link'] = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
@@ -38,13 +38,13 @@ if ($module_info['rss']) {
         $catid_i = end($arr_catid);
         $catalias = $global_array_cat[$catid_i]['alias'];
         $rimages = (!empty($homeimgfile)) ? '<img src="' . NV_MY_DOMAIN . NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_name . '/' . $homeimgfile . '" width="100" align="left" border="0">' : '';
-        $items[] = array(
+        $items[] = [
             'title' => $title,
             'link' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $catalias . '/' . $alias . '-' . $id,
             'guid' => $module_name . '_' . $id,
             'description' => $rimages . $hometext,
             'pubdate' => $publtime
-        );
+        ];
     }
 }
 */

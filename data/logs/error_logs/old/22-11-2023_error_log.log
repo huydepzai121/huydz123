@@ -1,0 +1,150 @@
+[Wed, 22 Nov 2023 15:06:57 +0700] [localhost] [::1] [Warning(2): Undefined variable $baseLink] [FILE: /modules/weather/theme.php] [LINE: 72]
+[Wed, 22 Nov 2023 15:32:35 +0700] [localhost] [::1] [Error(1): Uncaught Error: Call to undefined function nv_redirect() in D:\xampp\htdocs\huydz\modules\weather\funcs\main.php:62
+Stack trace:
+#0 D:\xampp\htdocs\huydz\index.php(369): require()
+#1 {main}
+  thrown] [FILE: /modules/weather/funcs/main.php] [LINE: 62]
+[Wed, 22 Nov 2023 15:38:59 +0700] [localhost] [::1] [Error(1): Uncaught Error: Call to undefined function nv_redirect() in D:\xampp\htdocs\huydz\modules\weather\funcs\main.php:57
+Stack trace:
+#0 D:\xampp\htdocs\huydz\index.php(369): require()
+#1 {main}
+  thrown] [FILE: /modules/weather/funcs/main.php] [LINE: 57]
+[Wed, 22 Nov 2023 15:42:08 +0700] [localhost] [::1] [Error(1): Uncaught Error: Call to undefined function nv_redirect() in D:\xampp\htdocs\huydz\modules\weather\funcs\main.php:66
+Stack trace:
+#0 D:\xampp\htdocs\huydz\index.php(369): require()
+#1 {main}
+  thrown] [FILE: /modules/weather/funcs/main.php] [LINE: 66]
+[Wed, 22 Nov 2023 20:23:09 +0700] [localhost] [::1] [Error(1): Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'huydz1.nv4_vi_redday_city' doesn't exist in D:\xampp\htdocs\huydz\vendor\vinades\nukeviet\Core\Database.php:544
+Stack trace:
+#0 D:\xampp\htdocs\huydz\vendor\vinades\nukeviet\Core\Database.php(544): PDO->query('SELECT id, name...', NULL)
+#1 D:\xampp\htdocs\huydz\modules\redday\admin\main.php(31): NukeViet\Core\Database->query('SELECT id, name...')
+#2 D:\xampp\htdocs\huydz\admin\index.php(182): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown] [FILE: /vendor/vinades/nukeviet/Core/Database.php] [LINE: 544]
+[Wed, 22 Nov 2023 20:23:17 +0700] [localhost] [::1] [Error(1): Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'huydz1.nv4_vi_redday' doesn't exist in D:\xampp\htdocs\huydz\vendor\vinades\nukeviet\Core\Database.php:580
+Stack trace:
+#0 D:\xampp\htdocs\huydz\vendor\vinades\nukeviet\Core\Database.php(580): PDO->prepare('SELECT nv4_vi_r...', Array)
+#1 D:\xampp\htdocs\huydz\modules\redday\funcs\main.php(51): NukeViet\Core\Database->prepare('SELECT nv4_vi_r...')
+#2 D:\xampp\htdocs\huydz\index.php(369): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown] [FILE: /vendor/vinades/nukeviet/Core/Database.php] [LINE: 580]
+[Wed, 22 Nov 2023 20:27:54 +0700] [localhost] [::1] [Warning(2): rename(D:/xampp/htdocs/huydz/data/tmp/abd709e6019757090e496ad991f390e2/modules/redday/language/.htaccess,D:/xampp/htdocs/huydz/modules/redday/language/.htaccess): The system cannot find the file specified (code: 2)] [FILE: /admin/extensions/upload.php] [LINE: 275]
+[Wed, 22 Nov 2023 20:28:29 +0700] [localhost] [::1] [User Notice(1024): PDOException Object
+(
+    [message:protected] => SQLSTATE[42000]: Syntax error or access violation: 1067 Invalid default value for 'alias'
+    [string:Exception:private] => 
+    [code:protected] => 42000
+    [file:protected] => D:\xampp\htdocs\huydz\vendor\vinades\nukeviet\Core\Database.php
+    [line:protected] => 544
+    [trace:Exception:private] => Array
+        (
+            [0] => Array
+                (
+                    [file] => D:\xampp\htdocs\huydz\vendor\vinades\nukeviet\Core\Database.php
+                    [line] => 544
+                    [function] => query
+                    [class] => PDO
+                    [type] => ->
+                    [args] => Array
+                        (
+                            [0] => CREATE TABLE nv4_vi_redday_city (
+    id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
+    ma_vung varchar(10) NOT NULL,
+    quoc_gia varchar(255) NOT NULL,
+    alias varchar(255) DEFAULT NULL
+    PRIMARY KEY (id)
+) ENGINE=MyISAM;
+                            [1] => 
+                        )
+
+                )
+
+            [1] => Array
+                (
+                    [file] => D:\xampp\htdocs\huydz\admin\modules\functions.php
+                    [line] => 192
+                    [function] => query
+                    [class] => NukeViet\Core\Database
+                    [type] => ->
+                    [args] => Array
+                        (
+                            [0] => CREATE TABLE nv4_vi_redday_city (
+    id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
+    ma_vung varchar(10) NOT NULL,
+    quoc_gia varchar(255) NOT NULL,
+    alias varchar(255) DEFAULT NULL
+    PRIMARY KEY (id)
+) ENGINE=MyISAM;
+                        )
+
+                )
+
+            [2] => Array
+                (
+                    [file] => D:\xampp\htdocs\huydz\admin\modules\recreate_mod.php
+                    [line] => 22
+                    [function] => nv_setup_data_module
+                    [args] => Array
+                        (
+                            [0] => vi
+                            [1] => redday
+                            [2] => 0
+                        )
+
+                )
+
+            [3] => Array
+                (
+                    [file] => D:\xampp\htdocs\huydz\admin\index.php
+                    [line] => 182
+                    [args] => Array
+                        (
+                            [0] => D:\xampp\htdocs\huydz\admin\modules\recreate_mod.php
+                        )
+
+                    [function] => require
+                )
+
+        )
+
+    [previous:Exception:private] => 
+    [errorInfo] => Array
+        (
+            [0] => 42000
+            [1] => 1067
+            [2] => Invalid default value for 'alias'
+        )
+
+)
+] [FILE: /admin/modules/functions.php] [LINE: 194]
+[Wed, 22 Nov 2023 20:37:42 +0700] [localhost] [::1] [Warning(2): file_get_contents(D:/xampp/htdocs/huydz/themes//modules/dictionary\main.tpl): Failed to open stream: No such file or directory] [FILE: /includes/xtemplate.class.php] [LINE: 1333]
+[Wed, 22 Nov 2023 21:26:18 +0700] [localhost] [::1] [Warning(2): Undefined variable $xtpl] [FILE: /modules/dictionary/admin/main.php] [LINE: 43]
+[Wed, 22 Nov 2023 21:26:18 +0700] [localhost] [::1] [Error(1): Uncaught Error: Call to a member function assign() on null in D:\xampp\htdocs\huydz\modules\dictionary\admin\main.php:43
+Stack trace:
+#0 D:\xampp\htdocs\huydz\admin\index.php(182): require()
+#1 {main}
+  thrown] [FILE: /modules/dictionary/admin/main.php] [LINE: 43]
+[Wed, 22 Nov 2023 21:26:24 +0700] [localhost] [::1] [Warning(2): Undefined variable $xtpl] [FILE: /modules/dictionary/admin/main.php] [LINE: 47]
+[Wed, 22 Nov 2023 21:26:24 +0700] [localhost] [::1] [Error(1): Uncaught Error: Call to a member function parse() on null in D:\xampp\htdocs\huydz\modules\dictionary\admin\main.php:47
+Stack trace:
+#0 D:\xampp\htdocs\huydz\admin\index.php(182): require()
+#1 {main}
+  thrown] [FILE: /modules/dictionary/admin/main.php] [LINE: 47]
+[Wed, 22 Nov 2023 21:42:32 +0700] [localhost] [::1] [Warning(2): Undefined array key 1] [FILE: /modules/dictionary/admin/main.php] [LINE: 31]
+[Wed, 22 Nov 2023 21:42:32 +0700] [localhost] [::1] [Warning(2): Undefined array key 1] [FILE: /modules/dictionary/admin/main.php] [LINE: 64]
+[Wed, 22 Nov 2023 21:53:57 +0700] [localhost] [::1] [Warning(2): file_put_contents(D:/xampp/htdocs/huydz/includes/Cache/vi/dictionary_dictionary_cache.txt): Failed to open stream: No such file or directory] [FILE: /modules/dictionary/admin/main.php] [LINE: 60]
+[Wed, 22 Nov 2023 22:27:29 +0700] [localhost] [::1] [Warning(2): require_once(D:/xampp/htdocs/huydz/includes/class/cache.class.php): Failed to open stream: No such file or directory] [FILE: /modules/dictionary/admin/main.php] [LINE: 16]
+[Wed, 22 Nov 2023 22:27:29 +0700] [localhost] [::1] [Error(1): Uncaught Error: Failed opening required 'D:/xampp/htdocs/huydz/includes/class/cache.class.php' (include_path='D:\xampp\php\PEAR') in D:\xampp\htdocs\huydz\modules\dictionary\admin\main.php:16
+Stack trace:
+#0 D:\xampp\htdocs\huydz\admin\index.php(182): require()
+#1 {main}
+  thrown] [FILE: /modules/dictionary/admin/main.php] [LINE: 16]
+[Wed, 22 Nov 2023 22:28:45 +0700] [localhost] [::1] [Warning(2): require_once(D:/xampp/htdocs/huydz/includes/class/cache.class.php): Failed to open stream: No such file or directory] [FILE: /modules/dictionary/admin/main.php] [LINE: 18]
+[Wed, 22 Nov 2023 22:28:45 +0700] [localhost] [::1] [Error(1): Uncaught Error: Failed opening required 'D:/xampp/htdocs/huydz/includes/class/cache.class.php' (include_path='D:\xampp\php\PEAR') in D:\xampp\htdocs\huydz\modules\dictionary\admin\main.php:18
+Stack trace:
+#0 D:\xampp\htdocs\huydz\admin\index.php(182): require()
+#1 {main}
+  thrown] [FILE: /modules/dictionary/admin/main.php] [LINE: 18]
+[Wed, 22 Nov 2023 23:15:46 +0700] [localhost] [::1] [Warning(2): Undefined array key "success_save"] [FILE: /modules/dictionary/admin/main.php] [LINE: 58]

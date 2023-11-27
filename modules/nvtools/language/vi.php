@@ -219,3 +219,5 @@ $lang_module['thememdcp_success'] = 'Thực hiện hoàn tất';
 
 $lang_module['addfun'] = 'Thêm function mới cho module';
 $lang_module['addfun_err_prikey'] = 'Bảng dữ liệu này không có khóa chính (Primary Key) do đó một số phần như active, weight, delete sẽ bị lỗi';
+
+$lang_module['copylang'] = 'Sao chép cấu hình theo ngôn ngữ';

@@ -8,22 +8,23 @@
  * @Createdate Sat, 19 Mar 2011 16:50:45 GMT
  */
 
-if (!defined('NV_IS_MOD_NVTOOLS'))
+if (!defined('NV_IS_MOD_NVTOOLS')) {
     die('Stop!!!');
+}
 
 $page_title = $lang_module['SiteTitleModule'];
 $key_words = $module_info['keywords'];
 
-$array_mod_title[] = array(
+$array_mod_title[] = [
     'catid' => 0,
     'title' => $lang_module['SiteTitleModule'],
     'link' => $client_info['selfurl']
-);
+];
 
-$data_system = array();
-$data_admin = array();
-$data_site = array();
-$data_sql = array();
+$data_system = [];
+$data_admin = [];
+$data_site = [];
+$data_sql = [];
 
 $savedata = $nv_Request->get_int('savedata', 'post', 0);
 if ($savedata) {
@@ -69,23 +70,23 @@ if ($savedata) {
                 $title = (empty($admintitle[$key])) ? $file : $admintitle[$key];
                 $titlevi = (empty($admintitlevi[$key])) ? $file : $admintitlevi[$key];
                 $ajax = (isset($adminajax[$key])) ? intval($adminajax[$key]) : 0;
-                $data_admin[] = array(
+                $data_admin[] = [
                     'file' => $file,
                     'title' => $title,
                     'titlevi' => $titlevi,
                     'ajax' => $ajax
-                );
+                ];
                 if ($file == 'main')
                     $is_main = true;
             }
         }
         if (!empty($data_admin) and !$is_main) {
-            $data_admin[] = array(
+            $data_admin[] = [
                 'file' => 'main',
                 'title' => 'Main',
                 'titlevi' => $lang_module['nvtools_main'],
                 'ajax' => 0
-            );
+            ];
         }
     }
 
@@ -106,23 +107,25 @@ if ($savedata) {
                     $file = change_alias($file);
                 }
                 if (preg_match($global_config['check_op'], $file) or (preg_match($global_config['check_op_file'], $file . ".php") and $ajax == 1)) {
-                    $data_site[] = array(
+                    $data_site[] = [
                         'file' => $file,
                         'title' => $title,
                         'titlevi' => $titlevi,
-                        'ajax' => $ajax);
-                    if ($file == 'main')
+                        'ajax' => $ajax
+                    ];
+                    if ($file == 'main') {
                         $is_main = true;
+                    }
                 }
             }
         }
         if (!empty($data_site) and !$is_main) {
-            $data_site[] = array(
+            $data_site[] = [
                 'file' => 'main',
                 'title' => 'Main',
                 'titlevi' => $lang_module['nvtools_main'],
                 'ajax' => 0
-            );
+            ];
         }
     }
 
@@ -143,12 +146,12 @@ if ($savedata) {
                     $table = str_replace("-", "_", $table);
                 } else {
                     $table = strtolower($matches[1]);
-                    $array_fiter = array(
+                    $array_fiter = [
                         'create table if not exists',
                         'create table',
                         '(',
                         '`'
-                    );
+                    ];
                     $table = str_replace($array_fiter, '', $table);
                     $table = preg_replace('/(\W+)/i', '_', trim($table));
                     $table = preg_replace("/^" . nv_preg_quote(NV_PREFIXLANG . '_' . $data_system['module_data'] . '_') . "(.*)$/", "\\1", $table);
@@ -158,11 +161,11 @@ if ($savedata) {
                     $table = preg_replace("/^" . nv_preg_quote(NV_PREFIXLANG . '_') . "(.*)$/", "\\1", $table);
                     $table = preg_replace("/^" . nv_preg_quote($db_config['prefix'] . '_') . "(.*)$/", "\\1", $table);
                 }
-                $data_sql[] = array(
+                $data_sql[] = [
                     'table' => $table,
                     'sql' => $sql,
                     'setlang' => $setlang
-                );
+                ];
             } elseif (strlen($sql) > 10) {
                 $table = $tablename[$key];
                 if (!empty($table)) {
@@ -170,11 +173,11 @@ if ($savedata) {
                     $table = change_alias($table);
                     $table = str_replace("-", "_", $table);
                 }
-                $data_sql[] = array(
+                $data_sql[] = [
                     'table' => $table,
                     'sql' => $sql,
                     'setlang' => 1
-                );
+                ];
             }
         }
     }
@@ -251,12 +254,12 @@ if ($savedata) {
                 //     admin.functions.php
                 $content_admin_functions = "<?php\n\n";
                 $content_admin_functions .= AUTHOR_FILEHEAD . "\n\n";
-                $content_admin_functions .= "if (!defined('NV_ADMIN') or !defined('NV_MAINFILE') or !defined('NV_IS_MODADMIN'))\n    die('Stop!!!');\n\n";
+                $content_admin_functions .= "if (!defined('NV_ADMIN') or !defined('NV_MAINFILE') or !defined('NV_IS_MODADMIN')) {\n    die('Stop!!!');\n}\n\n";
 
                 //     lang admin
                 $content_lang = "<?php\n\n";
                 $content_lang .= AUTHOR_FILEHEAD . "\n\n";
-                $content_lang .= "if (!defined('NV_MAINFILE'))\n    die('Stop!!!');\n\n";
+                $content_lang .= "if (!defined('NV_MAINFILE')) {\n    die('Stop!!!');\n}\n\n";
 
                 $content_lang .= "\$lang_translator['author'] = '" . $data_system['author_name'] . " (" . $data_system['author_email'] . ")';\n";
                 $content_lang .= "\$lang_translator['createdate'] = '" . gmdate("d/m/Y, H:i") . "';\n";
@@ -267,11 +270,11 @@ if ($savedata) {
                 // admin.menu.php
                 $content_admin_menu = "<?php\n\n";
                 $content_admin_menu .= AUTHOR_FILEHEAD . "\n\n";
-                $content_admin_menu .= "if (!defined('NV_ADMIN'))\n    die('Stop!!!');\n\n";
+                $content_admin_menu .= "if (!defined('NV_ADMIN')) {\n    die('Stop!!!');\n}\n\n";
 
                 $content_langvi = $content_lang;
 
-                $array_allow_func = array();
+                $array_allow_func = [];
 
                 foreach ($data_admin as $data_i) {
                     $array_allow_func[] = $data_i['file'];
@@ -294,7 +297,7 @@ if ($savedata) {
 
                     $content = "<?php\n\n";
                     $content .= AUTHOR_FILEHEAD . "\n\n";
-                    $content .= "if (!defined('NV_IS_FILE_ADMIN'))\n    die('Stop!!!');\n\n";
+                    $content .= "if (!defined('NV_IS_FILE_ADMIN')) {\n    die('Stop!!!');\n}\n\n";
 
                     $content .= "\$page_title = \$lang_module['" . $data_i['file'] . "'];\n\n";
 
@@ -340,7 +343,7 @@ if ($savedata) {
                     file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/themes/admin_default/modules/" . $data_system['module_name'] . "/" . $data_i['file'] . ".tpl", $content, LOCK_EX);
                 }
                 $content_admin_functions .= "define('NV_IS_FILE_ADMIN', true);\n\n";
-                $content_admin_functions .= "\$allow_func = array('" . implode("', '", $array_allow_func) . "');\n\n";
+                $content_admin_functions .= "\$allow_func = ['" . implode("', '", $array_allow_func) . "'];\n\n";
 
                 file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/admin.functions.php", trim($content_admin_functions) . "\n", LOCK_EX);
                 file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/admin.menu.php", trim($content_admin_menu) . "\n", LOCK_EX);
@@ -363,8 +366,8 @@ if ($savedata) {
                 file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/themes/admin_default/css/" . $data_system['module_name'] . ".css", AUTHOR_FILEHEAD . "\n", LOCK_EX);
             }
             // tao file cho Site
-            $array_modfuncs = array();
-            $array_submenu = array();
+            $array_modfuncs = [];
+            $array_submenu = [];
             if (!empty($data_site)) {
                 nv_mkdir_nvtools(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'], "funcs", 1, 0);
                 nv_mkdir_nvtools(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/themes", "default");
@@ -380,7 +383,7 @@ if ($savedata) {
                 if ($data_system['is_rss']) {
                     $config_RssData = "<?php\n\n";
                     $config_RssData .= AUTHOR_FILEHEAD . "\n\n";
-                    $config_RssData .= "if (!defined('NV_IS_MOD_RSS'))\n    die('Stop!!!');\n\n";
+                    $config_RssData .= "if (!defined('NV_IS_MOD_RSS')) {\n    die('Stop!!!');\n}\n\n";
                     $config_RssData .= file_get_contents(NV_ROOTDIR . "/modules/" . $module_file . "/modules/rssdata.tpl");
 
                     file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/rssdata.php", $config_RssData, LOCK_EX);
@@ -388,7 +391,7 @@ if ($savedata) {
 
                     $config_Rss = "<?php\n\n";
                     $config_Rss .= AUTHOR_FILEHEAD . "\n\n";
-                    $config_Rss .= "if (!defined('NV_IS_MOD_" . strtoupper($data_system['module_data']) . "'))\n    die('Stop!!!');\n\n";
+                    $config_Rss .= "if (!defined('NV_IS_MOD_" . strtoupper($data_system['module_data']) . "')) {\n    die('Stop!!!');\n}\n\n";
                     $config_Rss .= file_get_contents(NV_ROOTDIR . "/modules/" . $module_file . "/modules/rss.tpl");
 
                     file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/funcs/rss.php", $config_Rss, LOCK_EX);
@@ -399,7 +402,7 @@ if ($savedata) {
                 if ($data_system['is_sitemap']) {
                     $config_sitemap = "<?php\n\n";
                     $config_sitemap .= AUTHOR_FILEHEAD . "\n\n";
-                    $config_sitemap .= "if (!defined('NV_IS_MOD_" . strtoupper($data_system['module_data']) . "'))\n    die('Stop!!!');\n\n";
+                    $config_sitemap .= "if (!defined('NV_IS_MOD_" . strtoupper($data_system['module_data']) . "')) {\n    die('Stop!!!');\n}\n\n";
                     $config_sitemap .= file_get_contents(NV_ROOTDIR . "/modules/" . $module_file . "/modules/sitemap.tpl");
 
                     file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/funcs/sitemap.php", $config_sitemap, LOCK_EX);
@@ -409,19 +412,19 @@ if ($savedata) {
                 //     functions.php
                 $content_functions = "<?php\n\n";
                 $content_functions .= AUTHOR_FILEHEAD . "\n\n";
-                $content_functions .= "if (!defined('NV_SYSTEM'))\n    die('Stop!!!');\n\n";
+                $content_functions .= "if (!defined('NV_SYSTEM')) {\n    die('Stop!!!');\n}\n\n";
                 $content_functions .= "define('NV_IS_MOD_" . strtoupper($data_system['module_data']) . "', true);\n";
                 file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/functions.php", $content_functions, LOCK_EX);
 
                 //     theme.php
                 $content_theme = "<?php\n\n";
                 $content_theme .= AUTHOR_FILEHEAD . "\n\n";
-                $content_theme .= "if (!defined('NV_IS_MOD_" . strtoupper($data_system['module_data']) . "'))\n    die('Stop!!!');";
+                $content_theme .= "if (!defined('NV_IS_MOD_" . strtoupper($data_system['module_data']) . "')) {\n    die('Stop!!!');\n}";
 
                 //     lang Site
                 $content_lang = "<?php\n\n";
                 $content_lang .= AUTHOR_FILEHEAD . "\n\n";
-                $content_lang .= "if (!defined('NV_MAINFILE'))\n    die('Stop!!!');\n\n";
+                $content_lang .= "if (!defined('NV_MAINFILE')) {\n    die('Stop!!!');\n}\n\n";
 
                 $content_lang .= "\$lang_translator['author'] = '" . $data_system['author_name'] . " (" . $data_system['author_email'] . ")';\n";
                 $content_lang .= "\$lang_translator['createdate'] = '" . gmdate("d/m/Y, H:i") . "';\n";
@@ -452,12 +455,12 @@ if ($savedata) {
 
                     $content = "<?php\n\n";
                     $content .= AUTHOR_FILEHEAD . "\n\n";
-                    $content .= "if (!defined('NV_IS_MOD_" . strtoupper($data_system['module_data']) . "'))\n    die('Stop!!!');\n\n";
+                    $content .= "if (!defined('NV_IS_MOD_" . strtoupper($data_system['module_data']) . "')) {\n    die('Stop!!!');\n}\n\n";
 
                     $content .= "\$page_title = \$module_info['site_title'];\n";
                     $content .= "\$key_words = \$module_info['keywords'];\n\n";
 
-                    $content .= "\$array_data = array();\n\n";
+                    $content .= "\$array_data = [];\n\n";
 
                     $content .= "//------------------\n";
                     $content .= "// Viết code vào đây\n";
@@ -518,7 +521,7 @@ if ($savedata) {
                 if ($is_search and $data_system['is_quicksearch']) {
                     $config_Search = "<?php\n\n";
                     $config_Search .= AUTHOR_FILEHEAD . "\n\n";
-                    $config_Search .= "if (!defined('NV_IS_MOD_SEARCH'))\n    die('Stop!!!');\n\n";
+                    $config_Search .= "if (!defined('NV_IS_MOD_SEARCH')) {\n    die('Stop!!!');\n}\n\n";
                     $config_Search .= file_get_contents(NV_ROOTDIR . "/modules/" . $module_file . "/modules/search.tpl");
 
                     file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/search.php", $config_Search, LOCK_EX);
@@ -532,11 +535,11 @@ if ($savedata) {
                 file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/themes/default/css/" . $data_system['module_name'] . ".css", AUTHOR_FILEHEAD . "\n", LOCK_EX);
             }
 
-            //     version
+            // Version
             $content_version = "<?php\n\n";
             $content_version .= AUTHOR_FILEHEAD . "\n\n";
-            $content_version .= "if (!defined('NV_MAINFILE'))\n    die('Stop!!!');\n\n";
-            $content_version .= "\$module_version = array(\n";
+            $content_version .= "if (!defined('NV_MAINFILE')) {\n    die('Stop!!!');\n}\n\n";
+            $content_version .= "\$module_version = [\n";
             $content_version .= "    'name' => '" . ucfirst($data_system['module_name']) . "',\n";
             $content_version .= "    'modfuncs' => '" . implode(",", $array_modfuncs) . "',\n";
             $content_version .= "    'change_alias' => '" . implode(",", $array_modfuncs) . "',\n";
@@ -547,7 +550,7 @@ if ($savedata) {
             $content_version .= "    'date' => '" . gmdate("D, j M Y H:i:s") . " GMT',\n";
             $content_version .= "    'author' => '" . $data_system['author_name'] . " (" . $data_system['author_email'] . ")',\n";
 
-            $array_uploads = array();
+            $array_uploads = [];
             $array_uploads[] = "\$module_name";
             if (!empty($data_system['uploads'])) {
                 $temp = explode(",", $data_system['uploads']);
@@ -559,30 +562,30 @@ if ($savedata) {
                     }
                 }
             }
-            $content_version .= "    'uploads_dir' => array(" . implode(",", $array_uploads) . "),\n";
+            $content_version .= "    'uploads_dir' => [" . implode(', ', $array_uploads) . "],\n";
 
             if (!empty($data_system['files'])) {
                 $temp = explode(",", $data_system['files']);
                 $temp = array_map("trim", $temp);
                 $temp = array_unique($temp);
-                $array_files = array();
+                $array_files = [];
                 $array_files[] = "\$module_name";
                 foreach ($temp as $value) {
                     if (preg_match("/^([a-zA-Z0-9]+)$/", $value)) {
                         $array_files[] = "\$module_name.'/" . $value . "'";
                     }
                 }
-                $content_version .= "    'files_dir' => array(" . implode(",", $array_files) . "),\n";
+                $content_version .= "    'files_dir' => [" . implode(', ', $array_files) . "],\n";
             }
 
             $content_version .= "    'note' => '" . $data_system['note'] . "'\n";
-            $content_version .= ");\n";
+            $content_version .= "];\n";
             file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/version.php", $content_version, LOCK_EX);
 
             //Siteinfo
             $config_Siteinfo = "<?php\n\n";
             $config_Siteinfo .= AUTHOR_FILEHEAD . "\n\n";
-            $config_Siteinfo .= "if (!defined('NV_IS_FILE_SITEINFO'))\n    die('Stop!!!');\n\n";
+            $config_Siteinfo .= "if (!defined('NV_IS_FILE_SITEINFO')) {\n    die('Stop!!!');\n}\n\n";
             $config_Siteinfo .= file_get_contents(NV_ROOTDIR . "/modules/" . $module_file . "/modules/siteinfo.tpl");
 
             file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/siteinfo.php", $config_Siteinfo, LOCK_EX);
@@ -620,8 +623,8 @@ if ($savedata) {
             if (!empty($content_sql_create)) {
                 $content_sql = "<?php\n\n";
                 $content_sql .= AUTHOR_FILEHEAD . "\n\n";
-                $content_sql .= "if (!defined('NV_MAINFILE'))\n    die('Stop!!!');\n\n";
-                $content_sql .= "\$sql_drop_module = array();\n";
+                $content_sql .= "if (!defined('NV_MAINFILE')) {\n    die('Stop!!!');\n}\n\n";
+                $content_sql .= "\$sql_drop_module = [];\n";
 
                 if (!empty($content_sql_drop)) {
                     $content_sql .= $content_sql_drop;
@@ -635,7 +638,7 @@ if ($savedata) {
                 file_put_contents(NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir . "/modules/" . $data_system['module_name'] . "/action_mysql.php", trim($content_sql) . "\n", LOCK_EX);
             }
 
-            $array_folder_module = array();
+            $array_folder_module = [];
             $array_folder_module[] = NV_ROOTDIR . "/" . NV_TEMP_DIR . "/" . $tempdir;
 
             //Zip module
@@ -668,36 +671,36 @@ if ($savedata) {
     $data_system['version2'] = '3';
     $data_system['version3'] = '03';
 
-    $data_admin[] = array(
+    $data_admin[] = [
         'file' => 'main',
         'title' => 'Main',
         'titlevi' => $lang_module['nvtools_main'],
         'ajax' => 0
-    );
-    $data_admin[] = array(
+    ];
+    $data_admin[] = [
         'file' => 'config',
         'title' => 'Config',
         'titlevi' => $lang_module['nvtools_config'],
         'ajax' => 0
-    );
-    $data_site[] = array(
+    ];
+    $data_site[] = [
         'file' => 'main',
         'title' => 'Main',
         'titlevi' => $lang_module['nvtools_main'],
         'ajax' => 0
-    );
-    $data_site[] = array(
+    ];
+    $data_site[] = [
         'file' => 'detail',
         'title' => 'Detail',
         'titlevi' => $lang_module['nvtools_detail'],
         'ajax' => 0
-    );
-    $data_site[] = array(
+    ];
+    $data_site[] = [
         'file' => 'search',
         'title' => 'Search',
         'titlevi' => $lang_module['nvtools_search'],
         'ajax' => 0
-    );
+    ];
 }
 
 $data_system['is_sysmodcheckbox'] = ($data_system['is_sysmod'] == 1) ? 'checked="checked"' : '';
@@ -723,11 +726,11 @@ $limit = (count($data_admin) > 2) ? count($data_admin) : 2;
 $xtpl->assign('ITEMS_ADMIN', $limit);
 
 for ($i = 0; $i < $limit; $i++) {
-    $data = (isset($data_admin[$i])) ? $data_admin[$i] : array(
+    $data = (isset($data_admin[$i])) ? $data_admin[$i] : [
         'file' => '',
         'title' => '',
         'ajax' => 0
-    );
+    ];
     $data['number'] = $i + 1;
     $data['class'] = ($i % 2 == 1) ? 'class="second"' : '';
     $data['checkbox'] = ($data['ajax'] == 1) ? 'checked="checked"' : '';
@@ -739,11 +742,11 @@ $limit = (count($data_site) > 2) ? count($data_site) : 2;
 $xtpl->assign('ITEMS_SITE', $limit);
 
 for ($i = 0; $i < $limit; $i++) {
-    $data = (isset($data_site[$i])) ? $data_site[$i] : array(
+    $data = (isset($data_site[$i])) ? $data_site[$i] : [
         'file' => '',
         'title' => '',
         'ajax' => 0
-    );
+    ];
     $data['number'] = $i + 1;
     $data['class'] = ($i % 2 == 1) ? 'class="second"' : '';
     $data['checkbox'] = ($data['ajax'] == 1) ? 'checked="checked"' : '';
@@ -754,7 +757,7 @@ for ($i = 0; $i < $limit; $i++) {
 $limit = (count($data_sql) > 1) ? count($data_sql) : 1;
 $xtpl->assign('ITEMS_SQL', $limit);
 for ($i = 0; $i < $limit; $i++) {
-    $data = (isset($data_sql[$i])) ? $data_sql[$i] : array('table' => '', 'sql' => '');
+    $data = (isset($data_sql[$i])) ? $data_sql[$i] : ['table' => '', 'sql' => ''];
     $data['number'] = $i + 1;
     $data['class'] = ($i % 2 == 1) ? 'class="second"' : '';
     if (!empty($data['sql'])) {

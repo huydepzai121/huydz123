@@ -1,68 +1,62 @@
 <?php
+
 /**
- * NukeViet Content Management System
- * @version 4.x
- * @copyright VINADES.,JSC
- * @license GNU/GPL version 2 or any later version
- * @see https://github.com/nukeviet/nukeviet
+ * @Project NUKEVIET 4.x
+ * @Author VINADES.,JSC (contact@vinades.vn)
+ * @copyright 2009
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate 12/31/2009 2:29
  */
 
-if (!defined('NV_IS_MOD_WEATHER')) {
-    exit('Stop!!!');
+if( ! defined( 'NV_IS_MOD_REDDAY' ) ) die( 'Stop!!!' );
+
+global $day, $month;
+$day = $nv_Request->get_int( 'day', 'post', date( 'd', NV_CURRENTTIME ) );
+$month = $nv_Request->get_int( 'month', 'post', date( 'm', NV_CURRENTTIME ) );
+
+$error = array();
+if( $day <= 0 or $day > 31 or $month <= 0 or $month > 12 )
+{
+	$error[] = sprintf( $lang_module['error_month'], $month, $day );
+}
+$error = array();
+if( $day <= 0 or $day > 31 or $month <= 0 or $month > 12 )
+{
+	$error[] = sprintf( $lang_module['error_month'], $month, $day );
+}
+if( in_array( $month, array( 4, 6, 9, 11 ) ) and $day == 31 )
+{
+	$error[] = sprintf( $lang_module['error_month'], $month, $day );
+}
+if( $month == 2 and $day > 29 )
+{
+	$error[] = sprintf( $lang_module['error_month2'], $day );
+}
+if( ! empty( $error ) )
+{
+	$xtpl->assign( 'ERROR', implode( '<br />', $error ) );
+	$xtpl->parse( 'main.error' );
+}
+else
+{
+	$mday = str_pad( $day, 2, '0', STR_PAD_LEFT );
+	$mmonth = str_pad( $month, 2, '0', STR_PAD_LEFT );
+	$filename = NV_ROOTDIR . '/modules/redday/data/' . $mday . $mmonth . '_vietnamese.txt';
+	$array_data = array();
+	if( file_exists( $filename ) )
+	{
+		$content_file = file_get_contents( $filename );
+		if( ! empty( $content_file ) )
+		{
+			$array_data = unserialize( $content_file );
+		}
+	}
 }
 
-$selectedCityName = '';
-$array_data = array();
-$total_pages = 0;
-$current_page = 1;
-$is_submit = isset($_POST['submit']);
-$records_per_page = 4;
-$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$current_page = max($current_page, 1);
-$start = ($current_page - 1) * $records_per_page;
-if ($is_submit) {
-    $current_page = 1;
-    $cityName = $nv_Request->get_title('id_city', 'post', '');
-    $selectedCityName = $cityName;
+$contents = nv_theme_redday_main ( $array_data, $error );
 
-    // Thực hiện phân trang
-
-    // Đếm tổng số bản ghi có điều kiện tên thành phố
-    $stmt = $db->prepare('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' 
-        INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_city 
-        ON ' . NV_PREFIXLANG . '_' . $module_data . '.id_city=' . NV_PREFIXLANG . '_' . $module_data . '_city.id 
-        WHERE ' . NV_PREFIXLANG . '_' . $module_data . '_city.name LIKE :city_name');
-    $stmt->bindValue(':city_name', '%' . $cityName . '%', PDO::PARAM_STR);
-    $stmt->execute();
-    $total_records = $stmt->fetchColumn();
-    $total_pages = ceil($total_records / $records_per_page);
-
-    // Truy vấn cơ sở dữ liệu với phân trang
-    $stmt = $db->prepare('SELECT ' . NV_PREFIXLANG . '_' . $module_data . '.id, ' . NV_PREFIXLANG . '_' . $module_data . '_city.name, date_forecast, description, wind_speed, high_temperature, low_temperature, avatar,rain FROM ' . NV_PREFIXLANG . '_' . $module_data . '
-        INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_city 
-        ON ' . NV_PREFIXLANG . '_' . $module_data . '.id_city=' . NV_PREFIXLANG . '_' . $module_data . '_city.id 
-        WHERE ' . NV_PREFIXLANG . '_' . $module_data . '_city.name LIKE :city_name');
-    $stmt->bindValue(':city_name', '%' . $cityName . '%', PDO::PARAM_STR);
-    $stmt->execute();
-
-    $array_data = $stmt->fetchAll();
-}
-else{
-    $stmt = $db->prepare('SELECT ' . NV_PREFIXLANG . '_' . $module_data . '.id, ' . NV_PREFIXLANG . '_' . $module_data . '_city.name, date_forecast, description, wind_speed, high_temperature, low_temperature, avatar,rain FROM ' . NV_PREFIXLANG . '_' . $module_data . '
-        INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_city 
-        ON ' . NV_PREFIXLANG . '_' . $module_data . '.id_city=' . NV_PREFIXLANG . '_' . $module_data . '_city.id');
-    $stmt->execute();
-
-    $array_data = $stmt->fetchAll();
-
-}
-
-// Lấy danh sách Thành phố từ cơ sở dữ liệu
-$citys = $db->query('SELECT id, name FROM ' . NV_PREFIXLANG . '_' . $module_data . '_city')->fetchAll();
-
-// Gọi hàm theme và hiển thị dữ liệu
-$contents = nv_theme_weather_main($array_data, $citys, $selectedCityName, $total_pages, $current_page, $is_submit);
+$page_title = sprintf( $lang_module['main_title_redday'], $day, $month );
 
 include NV_ROOTDIR . '/includes/header.php';
-echo nv_site_theme($contents);
+echo nv_site_theme( $contents );
 include NV_ROOTDIR . '/includes/footer.php';

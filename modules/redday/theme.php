@@ -1,84 +1,81 @@
 <?php
 
 /**
- * NukeViet Content Management System
- * @version 4.x
- * @author VINADES.,JSC <contact@vinades.vn>
- * @copyright (C) 2009-2021 VINADES.,JSC. All rights reserved
- * @license GNU/GPL version 2 or any later version
- * @see https://github.com/nukeviet The NukeViet CMS GitHub project
+ * @Project NUKEVIET 4.x
+ * @Author VINADES.,JSC (contact@vinades.vn)
+ * @copyright 2009
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate 12/31/2009 2:29
  */
 
-if (!defined('NV_IS_MOD_WEATHER')) {
-    exit('Stop!!!');
-}
+if( ! defined( 'NV_IS_MOD_REDDAY' ) ) die( 'Stop!!!' );
 
-/**
- * nv_page_main()
- *
- * @param array  $row
- * @param array  $ab_links
- * @param string $content_comment
- * @return string
- */
+function nv_theme_redday_main( $array_data, $error )
+{
+	global $module_name, $module_file, $lang_module, $module_info, $op, $day, $month;
 
-function nv_theme_weather_main($array_data, $citys, $selectedCityName, $total_pages, $current_page, $is_submit) {
-    global $module_file, $module_info, $global_config, $lang_module,$module_name;
+	$xtpl = new XTemplate( $op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign( 'LANG', $lang_module );
+	$xtpl->assign( 'TEMPLATE', $module_info['template'] );
+	$xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
+	$xtpl->assign( 'ACTION', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name );
+	$xtpl->assign( 'main_title_redday', sprintf( $lang_module['main_title_redday'], $day, $month ) );
 
-    $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+	if( ! empty( $error ) )
+	{
+		$xtpl->assign( 'ERROR', implode( '<br />', $error ) );
+		$xtpl->parse( 'main.error' );
+	}
 
-    $xtpl->assign('IS_SUBMIT', $is_submit);
-    if ($is_submit) {
-        foreach ($array_data as $row) {
-            $formatted_date = date('d/m/Y', strtotime($row['date_forecast']));
-            $xtpl->assign('WEATHER', array(
-                'name' => $row['name'],
-                'date_forecast' => $formatted_date,
-                'description' => $row['description'],
-                'wind_speed' => $row['wind_speed'],
-                'high_temperature' => $row['high_temperature'],
-                'low_temperature' => $row['low_temperature'],
-                'rain' => $row['rain'],
-                'avatar'=>$row['avatar']
-            ));
-            $xtpl->parse('main.loop');
-        }
-    }
-    else{
-        foreach ($array_data as $row) {
-            $formatted_date = date('d/m/Y', strtotime($row['date_forecast']));
-            $xtpl->assign('WEATHER', array(
-                'name' => $row['name'],
-                'date_forecast' => $formatted_date,
-                'description' => $row['description'],
-                'wind_speed' => $row['wind_speed'],
-                'high_temperature' => $row['high_temperature'],
-                'low_temperature' => $row['low_temperature'],
-                'rain' => $row['rain'],
-                'avatar'=>$row['avatar']
-            ));
-            $xtpl->parse('main.table_loop');
-        }
-    }
-
-    foreach ($citys as $city) {
-        $xtpl->assign('CITY', array(
-            'id' => $city['id'],
-            'name' => $city['name'],
-            'selected' => ($selectedCityName == $city['name']) ? 'selected="selected"' : ''
-        ));
-        $xtpl->parse('main.city_loop');
-    }
-    $base_page_link = $baseLink . '&amp;' . NV_OP_VARIABLE . '=main';
-    for ($i = 1; $i <= $total_pages; $i++) {
-        $xtpl->assign('PAGE', [
-            'num' => $i,
-            'link' => $base_page_link . '&page=' . $i,
-            'current' => ($i == $current_page) ? 'current' : ''
-        ]);
-        $xtpl->parse('main.page_loop');
-    }
-
-    $xtpl->parse('main');
-    return $xtpl->text('main');
+	for( $i = 1; $i <= 31; $i++ )
+	{
+		$array['value'] = $i;
+		$array['sl'] = ( $i == $day ) ? " selected=\"selected\"" : "";
+		$xtpl->assign( 'DAY', $array );
+		$xtpl->parse( 'main.loop_day' );
+	}
+	for( $i = 1; $i <= 12; $i++ )
+	{
+		$array['value'] = $i;
+		$array['sl'] = ( $i == $month ) ? " selected=\"selected\"" : "";
+		$xtpl->assign( 'MONTH', $array );
+		$xtpl->parse( 'main.loop_month' );
+	}
+	if( ! empty( $array_data ) )
+	{
+		if( ! empty( $array_data[0] ) )
+		{
+			$xtpl->assign( 'reddayevent0', stripslashes( $array_data[0] ) );
+		}
+		if( ! empty( $array_data[1] ) )
+		{
+			foreach( $array_data[1] as $key => $val )
+			{
+				$xtpl->assign( 'stateevents', nl2br( stripslashes( $val ) ) );
+				$xtpl->parse( 'main.content.stateevents.loop_stateevents' );
+			}
+            $xtpl->parse( 'main.content.stateevents' );
+		}
+		if( ! empty( $array_data[2] ) )
+		{
+			foreach( $array_data[2] as $key => $val )
+			{
+				$xtpl->assign( 'interevents', nl2br( stripslashes( $val ) ) );
+				$xtpl->parse( 'main.content.interevents.loop_interevents' );
+			}
+            $xtpl->parse( 'main.content.interevents' );
+		}
+		if( ! empty( $array_data[3] ) )
+		{
+			foreach( $array_data[3] as $key => $val )
+			{
+				$xtpl->assign( 'otherevents', nl2br( stripslashes( $val ) ) );
+				$xtpl->parse( 'main.content.otherevents.loop_otherevents' );
+			}
+            $xtpl->parse( 'main.content.otherevents' );
+		}
+        $xtpl->parse( 'main.content' );
+	}
+	$xtpl->parse( 'main' );
+	return $xtpl->text( 'main' );
 }

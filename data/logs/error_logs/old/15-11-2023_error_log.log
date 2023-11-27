@@ -1,4 +1,0 @@
-[Wed, 15 Nov 2023 06:03:17 -0800] [localhost] [::1] [Warning(2): Undefined variable $baseLink] [FILE: /modules/weather/theme.php] [LINE: 72]
-[Wed, 15 Nov 2023 06:04:41 -0800] [localhost] [::1] [Warning(2): Undefined array key "list_teacher"] [FILE: /modules/weather/admin/list.php] [LINE: 121]
-[Wed, 15 Nov 2023 06:09:10 -0800] [localhost] [::1] [Warning(2): exif_read_data(44.png): File not supported] [FILE: /vendor/vinades/nukeviet/Files/Upload.php] [LINE: 1076]
-[Wed, 15 Nov 2023 06:13:59 -0800] [localhost] [::1] [Run-time notices(8192): Implicit conversion from float 80249.99999999999 to int loses precision] [FILE: /vendor/vinades/nukeviet/Files/Upload.php] [LINE: 163]
