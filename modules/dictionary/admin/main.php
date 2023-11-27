@@ -25,6 +25,7 @@ $found_word = [];
 $word = '';
 $translation = '';
 $description = '';
+$audioPath = '';
 
 if ($search_word) {
     $dictionary_list = readCache($data_folder, 'dictionary_list.txt') ?: [];
@@ -34,6 +35,7 @@ if ($search_word) {
             $word = $entry['words'];
             $translation = $entry['translation'];
             $description = $entry['description'];
+            $audioPath = $entry['audioPath'] ?? '';
             break;
         }
     }
@@ -50,6 +52,23 @@ if ($nv_Request->isset_request('submit', 'post')) {
     if (empty($word) || empty($translation) || empty($description)) {
         $error = $lang_module['error_required_translate'];
     } else {
+        if (isset($_FILES['audioFile']) && $_FILES['audioFile']['error'] == 0) {
+            $audio_file = $_FILES['audioFile'];
+            $audio_file_name = time() . '_' . $audio_file['name'];
+            $audio_file_tmp_path = $audio_file['tmp_name'];
+            $audio_file_new_path = $data_folder . '/' . $audio_file_name;
+
+            if (in_array(strtolower(pathinfo($audio_file_name, PATHINFO_EXTENSION)), ['mp3', 'wav', 'ogg'])) {
+                if (move_uploaded_file($audio_file_tmp_path, $audio_file_new_path)) {
+                    $audioPath = $audio_file_new_path;
+                } else {
+                    $error = "Không thể tải lên file âm thanh.";
+                }
+            } else {
+                $error = "Định dạng file không được hỗ trợ.";
+            }
+        }
+
         $dictionary_list = readCache($data_folder, 'dictionary_list.txt') ?: [];
         $dictionary_id = array_key_exists('id', $found_word) ? $found_word['id'] : count($dictionary_list) + 1;
 
@@ -57,7 +76,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
             'id' => $dictionary_id,
             'words' => $word,
             'translation' => $translation,
-            'description' => $description
+            'description' => $description,
+            'audioPath' => $audioPath
         ];
 
         $result = writeCache($data_folder, 'dictionary_list.txt', $dictionary_list);
@@ -78,6 +98,7 @@ $xtpl->assign('OP', $op);
 $xtpl->assign('WORD', $word);
 $xtpl->assign('TRANSLATION', $translation);
 $xtpl->assign('DESCRIPTION', $description);
+
 $xtpl->assign('ALERT_MESSAGE', $message);
 $xtpl->assign('ALERT_TYPE', $type);
 
@@ -88,9 +109,17 @@ if (!empty($found_word)) {
     $xtpl->parse('main.not_found');
 }
 
+// Hiển thị file âm thanh nếu có
+if (!empty($audioPath)) {
+    $audio_url = NV_BASE_SITEURL . 'modules/' . $module_file . '/data/' . basename($audioPath);
+    $xtpl->assign('AUDIO_PATH', $audio_url);
+    $xtpl->parse('main.has_audio');
+}
+
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_admin_theme($contents);
 include NV_ROOTDIR . '/includes/footer.php';
+

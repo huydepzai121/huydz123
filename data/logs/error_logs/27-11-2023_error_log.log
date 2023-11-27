@@ -10,3 +10,5 @@ Stack trace:
 [Mon, 27 Nov 2023 14:36:54 +0700] [localhost] [::1] [Warning(2): Undefined variable $module_name] [FILE: /modules/dictionary/theme.php] [LINE: 22]
 [Mon, 27 Nov 2023 14:42:16 +0700] [localhost] [::1] [Warning(2): foreach() argument must be of type array|object, null given] [FILE: /modules/dictionary/theme.php] [LINE: 26]
 [Mon, 27 Nov 2023 14:49:08 +0700] [localhost] [::1] [Warning(2): imagecreatefrompng(): gd-png: libpng warning: iCCP: known incorrect sRGB profile] [FILE: /includes/core/statimg.php] [LINE: 27]
+[Mon, 27 Nov 2023 21:57:17 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 102]
+[Mon, 27 Nov 2023 21:57:17 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 103]
