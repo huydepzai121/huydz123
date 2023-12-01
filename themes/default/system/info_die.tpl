@@ -9,14 +9,18 @@
         <title>{PAGE_TITLE}</title>
         <link rel="shortcut icon" href="{SITE_FAVICON}" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="{NV_STATIC_URL}{NV_ASSETS_DIR}/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/all.min.css" rel="stylesheet" />
+        <link href="{NV_STATIC_URL}{NV_ASSETS_DIR}/css/fontawesome.min.css" rel="stylesheet" />
+
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css" rel="stylesheet" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.responsive.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="{NV_STATIC_URL}{NV_ASSETS_DIR}/js/language/{LANG.Content_Language}.js"></script>
         <script src="{NV_STATIC_URL}{NV_ASSETS_DIR}/js/global.js?t=1"></script>
         <script src="{NV_STATIC_URL}{NV_ASSETS_DIR}/js/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/main.js"></script>
+
     </head>
     <body>
         <div class="nv-infodie text-center">

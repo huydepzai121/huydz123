@@ -25,7 +25,9 @@ $found_word = [];
 $word = '';
 $translation = '';
 $description = '';
+$spelling='';
 $audioPath = '';
+$loaitu = ''; // Thêm biến cho loại từ
 
 if ($search_word) {
     $dictionary_list = readCache($data_folder, 'dictionary_list.txt') ?: [];
@@ -34,8 +36,10 @@ if ($search_word) {
             $found_word = $entry;
             $word = $entry['words'];
             $translation = $entry['translation'];
+            $spelling = $entry['spelling'];
             $description = $entry['description'];
             $audioPath = $entry['audioPath'] ?? '';
+            $loaitu = $entry['loaitu'] ?? ''; // Lấy giá trị loại từ
             break;
         }
     }
@@ -48,8 +52,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $word = $nv_Request->get_title('words', 'post', '');
     $translation = $nv_Request->get_title('translation', 'post', '');
     $description = $nv_Request->get_title('description', 'post', '');
+    $spelling = $nv_Request->get_title('spelling', 'post', '');
+    $loaitu = $nv_Request->get_title('loaitu', 'post', ''); // Lấy giá trị loại từ từ biểu mẫu
 
-    if (empty($word) || empty($translation) || empty($description)) {
+    if (empty($word) || empty($translation) || empty($description) || empty($spelling) || empty($loaitu)) {
         $error = $lang_module['error_required_translate'];
     } else {
         if (isset($_FILES['audioFile']) && $_FILES['audioFile']['error'] == 0) {
@@ -76,8 +82,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
             'id' => $dictionary_id,
             'words' => $word,
             'translation' => $translation,
+            'spelling' => $spelling,
             'description' => $description,
-            'audioPath' => $audioPath
+            'audioPath' => $audioPath,
+            'loaitu' => $loaitu
         ];
 
         $result = writeCache($data_folder, 'dictionary_list.txt', $dictionary_list);
@@ -98,10 +106,27 @@ $xtpl->assign('OP', $op);
 $xtpl->assign('WORD', $word);
 $xtpl->assign('TRANSLATION', $translation);
 $xtpl->assign('DESCRIPTION', $description);
-
+$xtpl->assign('SPELLING', $spelling);
+$xtpl->assign('LOAITU', $loaitu); // Truyền giá trị loại từ cho biểu mẫu
 $xtpl->assign('ALERT_MESSAGE', $message);
 $xtpl->assign('ALERT_TYPE', $type);
+$loai_tus = [
+    'Tính từ' => 'Tính từ (Adjective)',
+    'Động từ ' => 'Động từ (Verb)',
+    'Danh từ' => 'Danh từ (Noun)',
+    'Trạng từ' => 'Trạng từ (Adverb)',
+    'Đại từ' => 'Đại từ (Pronoun)',
+    'Liên từ' => 'Liên từ (Conjunction)',
+    'Giới từ' => 'Giới từ (Preposition)'
+];
 
+foreach ($loai_tus as $key => $text) {
+    $selected = ($loaitu == $key) ? 'selected' : '';
+    $xtpl->assign('OPTION_VALUE', $key);
+    $xtpl->assign('OPTION_TEXT', $text);
+    $xtpl->assign('SELECTED', $selected);
+    $xtpl->parse('main.loaitu_option');
+}
 if (!empty($found_word)) {
     $xtpl->parse('main.edit_form');
 } else if ($search_word) {
@@ -122,4 +147,3 @@ $contents = $xtpl->text('main');
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_admin_theme($contents);
 include NV_ROOTDIR . '/includes/footer.php';
-

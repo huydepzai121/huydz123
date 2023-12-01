@@ -1,4 +1,3 @@
-
 <!-- BEGIN: main -->
 <form action="" method="post" class="form-group" enctype="multipart/form-data">
     <input type="hidden" name="id" value="">
@@ -12,15 +11,33 @@
         <div class="col-24 col-md-24">
             <div class="form-group">
                 <label >Từ Tiếng Việt:</label>
-                <input type="text" name="translation" class="form-control" value="{TRANSLATION}"></span>
+                <input type="text" name="translation" class="form-control" value="{TRANSLATION}">
             </div>
         </div>
+        <div class="col-24 col-md-24">
+            <div class="form-group">
+                <label >Phiên âm:</label>
+                <input type="text" name="spelling" class="form-control" value="{SPELLING}">
+            </div>
+        </div>
+        <div class="col-24 col-md-24">
+            <div class="form-group">
+                <label for="loaitu">Chọn loại từ</label>
+                <select name="loaitu" id="loaitu" class="form-control">
+                    <!-- BEGIN: loaitu_option -->
+                    <option value="{OPTION_VALUE}" {SELECTED}>{OPTION_TEXT}</option>
+                    <!-- END: loaitu_option -->
+                </select>
+            </div>
+        </div>
+
         <div class="col-24 col-md-24">
             <div class="form-group">
                 <label>Mô tả</label>
                 <textarea name="description" id="description">{DESCRIPTION}</textarea>
             </div>
         </div>
+
         <div class="col-24 col-md-24">
             <div class="form-group">
                 <label>Phát âm</label>

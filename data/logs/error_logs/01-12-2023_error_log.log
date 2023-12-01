@@ -1,0 +1,2 @@
+[Fri, 01 Dec 2023 14:24:02 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 111]
+[Fri, 01 Dec 2023 14:24:02 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 112]

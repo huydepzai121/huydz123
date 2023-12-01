@@ -1,3 +1,0 @@
-[Sat, 25 Nov 2023 15:25:19 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 81]
-[Sat, 25 Nov 2023 15:25:19 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 82]
-[Sat, 25 Nov 2023 23:09:58 +0700] [localhost] [::1] [Warning(2): Undefined variable $baseLink] [FILE: /modules/weather/theme.php] [LINE: 72]

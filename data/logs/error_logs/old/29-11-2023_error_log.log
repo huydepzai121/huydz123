@@ -1,0 +1,9 @@
+[Wed, 29 Nov 2023 22:57:48 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 111]
+[Wed, 29 Nov 2023 22:57:48 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 112]
+[Wed, 29 Nov 2023 23:54:17 +0700] [localhost] [::1] [Warning(2): Undefined variable $xtpl] [FILE: /modules/dictionary/admin/main.php] [LINE: 108]
+[Wed, 29 Nov 2023 23:54:17 +0700] [localhost] [::1] [Error(1): Uncaught Error: Call to a member function assign() on null in D:\xampp\htdocs\huydz\modules\dictionary\admin\main.php:108
+Stack trace:
+#0 D:\xampp\htdocs\huydz\admin\index.php(182): require()
+#1 {main}
+  thrown] [FILE: /modules/dictionary/admin/main.php] [LINE: 108]
+[Thu, 30 Nov 2023 00:10:29 +0700] [localhost] [::1] [Warning(2): Undefined array key "error_required_translate"] [FILE: /modules/dictionary/admin/main.php] [LINE: 59]

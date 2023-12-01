@@ -12,7 +12,7 @@ if (!defined('NV_IS_MOD_DICTIONARY')) {
 
 
 
-function nv_theme_dictionary_main($search_word, $found_word, $is_submit)
+function nv_theme_dictionary_main($search_word, $found_words, $is_submit)
 {
     global $module_info, $module_file;
 
@@ -20,8 +20,17 @@ function nv_theme_dictionary_main($search_word, $found_word, $is_submit)
     $xtpl->assign('SEARCH_WORD', htmlspecialchars($search_word, ENT_QUOTES));
 
     if ($is_submit) {
-        if ($found_word) {
-            $xtpl->assign('FOUND_WORD', $found_word);
+        if (!empty($found_words)) {
+            foreach ($found_words as $word) {
+                // Gán giá trị cho từng thuộc tính của word
+                $xtpl->assign('WORD', array(
+                    'words' => $word['words'],
+                    'translation' => $word['translation'],
+                    'loaitu' => $word['loaitu'],
+                    'description' => $word['description']
+                ));
+                $xtpl->parse('main.result.word');
+            }
             $xtpl->parse('main.result');
         } else {
             $xtpl->parse('main.no_result');
@@ -31,6 +40,7 @@ function nv_theme_dictionary_main($search_word, $found_word, $is_submit)
     $xtpl->parse('main');
     return $xtpl->text('main');
 }
+
 
 
 
