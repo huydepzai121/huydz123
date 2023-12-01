@@ -27,13 +27,18 @@
 </div>
 
 <!-- BEGIN: result -->
-<div class="result">
+<div class="container mt-5">
     <!-- BEGIN: word -->
-    <div class="word alert alert-success" role="alert">
-        <h4 class="alert-heading">Từ: {WORD.words}</h4>
-        <p>Nghĩa: {WORD.translation}</p>
-        <p>Loại: {WORD.loaitu}</p>
-        <p>Mô tả: {WORD.description}</p>
+    <div class="word-container row">
+        <div class="col">
+            <h2 class="word-title" id="word-text">
+                {WORD.words}
+                <small class="word-spelling text-muted">{WORD.spelling}</small>
+                <span class="sound-icon" data-audio="{WORD.audioPath}">
+                    <i class="fa fa-volume-up" aria-hidden="true"></i><span id="uk"> UK</span>
+                </span>
+            </h2>
+        </div>
     </div>
     <!-- END: word -->
 </div>
@@ -44,4 +49,33 @@
     Không tìm thấy từ: {SEARCH_WORD}
 </div>
 <!-- END: no_result -->
+<style>
+    .sound-icon {
+        cursor: pointer;
+        color: #8f8f8f;
+    }
+    .sound-icon:hover{
+        color:#0a7be9;
+    }
+    #word-text{
+        font-size: 15pt;
+        color: #0a7be9;
+    }
+    #uk{
+        font-size: 9pt;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var soundIcons = document.querySelectorAll('.sound-icon');
+
+        soundIcons.forEach(function(icon) {
+            icon.addEventListener('click', function() {
+                var audioPath = icon.getAttribute('data-audio');
+                var audio = new Audio(audioPath);
+                audio.play();
+            });
+        });
+    });
+</script>
 <!-- END: main -->

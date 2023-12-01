@@ -22,12 +22,15 @@ function nv_theme_dictionary_main($search_word, $found_words, $is_submit)
     if ($is_submit) {
         if (!empty($found_words)) {
             foreach ($found_words as $word) {
+                $audio_url = NV_BASE_SITEURL . 'modules/' . $module_file . '/data/' . basename($word['audioPath']);
                 // Gán giá trị cho từng thuộc tính của word
                 $xtpl->assign('WORD', array(
                     'words' => $word['words'],
+                    'spelling'=>$word['spelling'],
                     'translation' => $word['translation'],
                     'loaitu' => $word['loaitu'],
-                    'description' => $word['description']
+                    'description' => $word['description'],
+                    'audioPath' => $audio_url
                 ));
                 $xtpl->parse('main.result.word');
             }
