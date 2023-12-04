@@ -1,0 +1,7 @@
+[Mon, 04 Dec 2023 15:18:43 +0700] [localhost] [::1] [Warning(2): Undefined variable $result] [FILE: /modules/dictionary/admin/main.php] [LINE: 101]
+[Mon, 04 Dec 2023 15:18:43 +0700] [localhost] [::1] [Warning(2): Undefined variable $result] [FILE: /modules/dictionary/admin/main.php] [LINE: 102]
+[Mon, 04 Dec 2023 22:26:37 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 116]
+[Mon, 04 Dec 2023 22:26:37 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 117]
+[Mon, 04 Dec 2023 22:57:53 +0700] [localhost] [::1] [Warning(2): Undefined variable $message] [FILE: /modules/dictionary/admin/main.php] [LINE: 120]
+[Mon, 04 Dec 2023 22:57:53 +0700] [localhost] [::1] [Warning(2): Undefined variable $type] [FILE: /modules/dictionary/admin/main.php] [LINE: 121]
+[Mon, 04 Dec 2023 22:58:02 +0700] [localhost] [::1] [Warning(2): Undefined array key "description"] [FILE: /modules/dictionary/admin/main.php] [LINE: 36]

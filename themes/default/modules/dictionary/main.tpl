@@ -25,19 +25,34 @@
         </div>
     </div>
 </div>
-
 <!-- BEGIN: result -->
 <div class="container mt-5">
     <!-- BEGIN: word -->
     <div class="word-container row">
-        <div class="col">
+        <div class="col-md-24">
             <h2 class="word-title" id="word-text">
-                {WORD.words}
-                <small class="word-spelling text-muted">{WORD.spelling}</small>
+                {WORD.words} <small id="uk">{WORD.spelling}</small>
                 <span class="sound-icon" data-audio="{WORD.audioPath}">
-                    <i class="fa fa-volume-up" aria-hidden="true"></i><span id="uk"> UK</span>
-                </span>
+                        <i class="fa fa-volume-up" aria-hidden="true"></i> UK
+                    </span>
             </h2>
+        </div>
+        <div class="col-md-24 bg-grey bold m-top20">
+            {WORD.loaitu}
+        </div>
+        <div class="col-md-24 bold margin25 m-top15">
+            {WORD.translation}
+        </div>
+        <div class="col-md-24 bold  m-top15">
+            {WORD.description}
+        </div>
+        <div class="col-md-24">
+            <!-- BEGIN: example -->
+            <div class="dictionary-example m-top15">
+                <p class="color-light-blue">{EXAMPLE}</p>
+                <p>{EXAMPLE_TRANSLATION}</p>
+            </div>
+            <!-- END: example -->
         </div>
     </div>
     <!-- END: word -->
@@ -49,22 +64,7 @@
     Không tìm thấy từ: {SEARCH_WORD}
 </div>
 <!-- END: no_result -->
-<style>
-    .sound-icon {
-        cursor: pointer;
-        color: #8f8f8f;
-    }
-    .sound-icon:hover{
-        color:#0a7be9;
-    }
-    #word-text{
-        font-size: 15pt;
-        color: #0a7be9;
-    }
-    #uk{
-        font-size: 9pt;
-    }
-</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var soundIcons = document.querySelectorAll('.sound-icon');
@@ -78,4 +78,9 @@
         });
     });
 </script>
+
+
+
+
+
 <!-- END: main -->

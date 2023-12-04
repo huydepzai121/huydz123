@@ -1,7 +1,67 @@
 /**
- * @Project NUKEVIET 4.x
- * @Author VINADES.,JSC <contact@vinades.vn>
- * @Copyright (C) 2023 VINADES.,JSC. All rights reserved
- * @License: Not free read more http://nukeviet.vn/vi/store/modules/nvtools/
- * @Createdate Wed, 22 Nov 2023 13:52:16 GMT
+ * NukeViet Content Management System
+ * @version 4.x
+ * @author VINADES.,JSC <contact@vinades.vn>
+ * @copyright (C) 2009-2021 VINADES.,JSC. All rights reserved
+ * @license GNU/GPL version 2 or any later version
+ * @see https://github.com/nukeviet The NukeViet CMS GitHub project
  */
+/* General Content Styles */
+#content {
+    margin: 30px;
+}
+
+/* Word Title and Phonetic Styles */
+.word-title {
+    font-size: 15pt;
+    color: #0a7be9;
+}
+
+/* Phonetic UK Symbol Styles */
+#uk {
+    font-size: 9pt;
+}
+
+/* Icon Styles */
+.sound-icon {
+    cursor: pointer;
+    color: #8f8f8f;
+}
+
+.sound-icon:hover {
+    color: #0a7be9;
+}
+
+/* General Element Styles */
+.bg-grey {
+    background-color: #f3f3f3; /* Replacing the image with a solid color for simplicity */
+    padding: 5px; /* Adding padding to replace the background image */
+    margin-top: 5px;
+    width: 80px;
+}
+
+.bold {
+    font-weight: bold; /* Using 'bold' instead of 700 for readability */
+}
+
+/* Margin and Padding Utilities */
+.m-top20 {
+    margin-top: 20px;
+}
+
+.margin25 {
+    margin-left: 25px;
+}
+
+.m-top15 {
+    margin-top: 15px;
+}
+
+/* Custom Link Styles */
+.color-light-blue, .color-light-blue > a {
+    color: #1198b6;
+}
+
+.color-light-blue:hover {
+    cursor: pointer;
+}

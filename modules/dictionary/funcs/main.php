@@ -1,4 +1,15 @@
 <?php
+/**
+ * NukeViet - Website engine
+ *
+ * @package     NVSystem
+ * @subpackage  Dictionary
+ * @link        http://nukeviet.vn
+ * @copyright   (c) 2004-2022, http://nukeviet.vn
+ * @license     GNU/GPL version 2 or any later version
+ * @version     4.0.29
+ */
+
 if (!defined('NV_IS_MOD_DICTIONARY')) {
     die('Stop!!!');
 }
@@ -20,33 +31,37 @@ $found_words = [];
 $is_submit = !empty($search_word);
 
 if ($is_submit) {
-    $dictionary_list = readCache($data_folder, 'dictionary_list.txt');
+    $dictionary_list = readCache($data_folder, 'dictionary_list.txt') ?: [];
+    $example_list = readCache($data_folder, 'example_list.txt') ?: [];
 
-    if ($search_type == 0) {
-        // Exact phrase search
-        foreach ($dictionary_list as $word_arr) {
-            if (strcasecmp($word_arr['words'], $search_word) === 0) {
-                $found_words[] = $word_arr;
-                break;
-            }
-        }
-    } else {
-        // Search for any word
-        $search_words = explode(' ', $search_word);
-        foreach ($dictionary_list as $word_arr) {
+    foreach ($dictionary_list as $word_id => $word_arr) {
+        $match_found = $search_type == 0 ? strcasecmp($word_arr['words'], $search_word) === 0 : false;
+        if ($search_type == 1) {
+            $search_words = explode(' ', $search_word);
             foreach ($search_words as $word) {
                 if (stripos($word_arr['words'], $word) !== false) {
-                    $found_words[] = $word_arr;
+                    $match_found = true;
                     break;
                 }
             }
         }
+
+        if ($match_found) {
+            // Kiểm tra và thu thập tất cả các ví dụ cho từ này
+            if (isset($example_list[$word_id])) {
+                $word_arr['example'] = $example_list[$word_id];
+            } else {
+                $word_arr['example'] = [];
+            }
+            $found_words[] = $word_arr;
+            if ($search_type == 0) break; // Chỉ thêm từ đầu tiên phù hợp cho tìm kiếm cụm từ chính xác
+        }
     }
 }
+
 
 $contents = nv_theme_dictionary_main($search_word, $found_words, $is_submit);
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);
 include NV_ROOTDIR . '/includes/footer.php';
-
